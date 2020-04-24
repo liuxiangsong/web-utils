@@ -4,10 +4,13 @@ import App from './App.vue'
 import routes from '@/router'
 import store from '@/store'
 
-import myPlugin from './plugins/myPlugin'
+// import myPlugin from './plugins/myPlugin'
 import directives from './directives'
 import * as filters from './filters'
- 
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/scss/reset.scss'
+
 const setDirective=(Vue)=>{
     Object.keys(directives).forEach(v=>Vue.directive(v,directives[v]))
 }
@@ -17,7 +20,8 @@ const setFilter=(Vue)=>{
 setDirective(Vue)
 setFilter(Vue)
 
-Vue.use(myPlugin)
+Vue.use(ElementUI)
+// Vue.use(myPlugin)
 Vue.use(VueRouter)
 const router = new VueRouter({
     routes

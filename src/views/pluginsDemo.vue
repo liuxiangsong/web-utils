@@ -5,15 +5,15 @@
   </div>
 </template>
 <script> 
- import Vue from 'vue'
-  export default { 
+import Vue from 'vue'
+export default { 
     data(){
-      return{}
+        return{}
     },
-     created () {
-       console.log(this,Vue)
-      this.$myMethod();
-      Vue.myGlobalMethod();
+    created () {
+        console.log(this,Vue)
+        this.$myMethod()
+        Vue.myGlobalMethod()
     },
-  }
+}
 </script>

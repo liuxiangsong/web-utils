@@ -1,7 +1,7 @@
 import REGULAR from './regular'
 /**
  * 取得字符串中格式正确的手机号和座机号
- * @param {arr} arr
+ * @param {string} contactNumber 
  */
 export function getContactNumbers(contactNumber) {
     if (!contactNumber) {

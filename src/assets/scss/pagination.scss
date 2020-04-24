@@ -1,0 +1,65 @@
+.my-pagination {
+  margin-bottom: 15px;
+
+  .el-pagination.is-background {
+    margin-top: 10px;
+    text-align: right;
+
+    .btn-prev,
+    .btn-next {
+      border: 1px solid #dcdae2;
+      width: 28px;
+      height: 28px;
+      font-size: 12px;
+      line-height: 28px;
+      border-radius: 4px;
+      color: #666666;
+      margin: 0px;
+      margin-right: 8px;
+      background: #ffffff;
+    }
+
+    .el-pager > li {
+      margin: 0;
+      border: 1px solid #dcdae2;
+      width: 28px;
+      height: 28px;
+      font-size: 12px;
+      line-height: 28px;
+      border-radius: 4px;
+      color: #666666;
+      margin-right: 8px;
+      background: #ffffff;
+    }
+
+    .el-pager > li:not(.disabled).active {
+      background: #7352bf;
+      border: none;
+    }
+
+    .el-pager > li.btn-quicknext {
+      background: none;
+      border: none;
+    }
+
+    .el-input__inner {
+      height: 28px;
+    }
+
+    .el-pagination__sizes,
+    .el-select .el-input {
+      margin: 0;
+    }
+
+    .el-pagination__jump {
+      margin-left: 16px;
+    }
+
+    .el-pagination__editor.el-input {
+      margin: {
+        right: 6px;
+        left: 6px;
+      }
+    }
+  }
+}
