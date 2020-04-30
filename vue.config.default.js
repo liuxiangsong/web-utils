@@ -36,9 +36,9 @@ module.exports = {
     integrity: true, //                           Default: true
     css: {
         requireModuleExtension: true
-            // extract: true,
-            //sourceMap:false,
-            //loaderOptions:{}
+        // extract: true,
+        //sourceMap:false,
+        //loaderOptions:{}
     },
     //是否为 Babel 或 TypeScript 使用 thread-loader
     parallel: require('os').cpus().length > 1,

@@ -5,19 +5,19 @@
 </template>
 
 <script>
-  export default { 
+export default { 
     data () {
-      return {
+        return {
 
-      }
+        }
     }, 
     computed: {
-      numbers () {
+        numbers () {
         // return this.$store.state.numbers;
-         return this.$store.getters.getNumbers; 
-      }
+            return this.$store.getters.getNumbers 
+        }
     },
-  }
+}
 </script>
 
  

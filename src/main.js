@@ -9,7 +9,8 @@ import directives from './directives'
 import * as filters from './filters'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import '@/assets/scss/reset.scss'
+// import '@/assets/scss/reset.scss'
+import 'normalize.css/normalize.css'
 
 const setDirective=(Vue)=>{
     Object.keys(directives).forEach(v=>Vue.directive(v,directives[v]))

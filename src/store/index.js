@@ -6,12 +6,12 @@ import vuexStoreDemo from './modules/vuexStoreDemo'
 
 
 export default new Vuex.Store({
-  namespaced: true,
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {
-    vuexStoreDemo, 
-  }
+    namespaced: true,
+    state: {},
+    getters: {},
+    mutations: {},
+    actions: {},
+    modules: {
+        vuexStoreDemo, 
+    }
 })

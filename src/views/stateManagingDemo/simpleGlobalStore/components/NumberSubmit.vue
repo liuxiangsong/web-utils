@@ -8,20 +8,20 @@
 </template>
 
 <script>
-  import store from '../store'
-  export default {
+import store from '../store'
+export default {
     data () {
-      return {
-        number: 0,
-      }
+        return {
+            number: 0,
+        }
     },
     methods: {
-      addNumber () {
-        store.addNumber(this.number);
-        this.number = 0;
-      }
+        addNumber () {
+            store.addNumber(this.number)
+            this.number = 0
+        }
     }
-  }
+}
 </script>
 <style scoped>
   .container {

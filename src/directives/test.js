@@ -7,7 +7,7 @@
  * ```
  */
 export default{
-  inserted(el) {
-      el.focus()
-  }
+    inserted(el) {
+        el.focus()
+    }
 }

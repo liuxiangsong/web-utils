@@ -7,17 +7,17 @@
 </template>
 
 <script>
-  import EventBus from '../event-bus.js'
-  export default {
+import EventBus from '../event-bus.js'
+export default {
     data () {
-      return {
-        num: 0,
-      }
+        return {
+            num: 0,
+        }
     },
     methods: {
-      addNumber () {
-        EventBus.$emit('addNumber', this.num);
-      }
+        addNumber () {
+            EventBus.$emit('addNumber', this.num)
+        }
     },
-  }
+}
 </script>

@@ -6,16 +6,16 @@
 </template>
 
 <script>
-  import NumberDisplay from './components/NumberDisplay.vue'
-  import NumberSubmit from './components/NumberSubmit.vue'
+import NumberDisplay from './components/NumberDisplay.vue'
+import NumberSubmit from './components/NumberSubmit.vue'
 
-  export default {
+export default {
     name: 'app',
     components: {
-      NumberSubmit,
-      NumberDisplay
+        NumberSubmit,
+        NumberDisplay
     }
-  }
+}
 </script>
 
  

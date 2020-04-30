@@ -5,15 +5,15 @@
 </template>
 
 <script>
-  import store from '../store'
-  export default {
+import store from '../store'
+export default {
     data () {
-      return {
-        storeNumbers: store.state.numbers,
-      }
+        return {
+            storeNumbers: store.state.numbers,
+        }
     },
 
-  }
+}
 </script>
  <style  scoped>
 </style>

@@ -2,12 +2,13 @@
   <div>
     <div class="global">
       <h2>全局指令</h2>
-      <input type="text" v-focus />
+      <input type="text" v-focus placeholder="页面加载后光标聚焦在该控件"/>
       <hr />
       <input v-myrestrict.float maxlength="10" placeholder="只能输入浮点类型数据" />
       <br />
-      <input />
       <input v-myrestrict.regular="/^[0-9a-f]*$/i" placeholder="只能输入符合正则的数据" />
+      <br/>
+       <input type="text" @input="onInput($event,'float',3)" placeholder="非指令，通过引入外部方法实现限制最多输入3位小数"/>
     </div>
 
     <div class="comp">
@@ -35,6 +36,7 @@
 </template>
 
 <script>
+import {handleInput} from '@utils/inputHandle'
 export default {
     data() {
         return {
@@ -42,6 +44,9 @@ export default {
         }
     },
     methods: {
+        onInput(e,type,decimalPoint){ 
+            handleInput(e.target,type,decimalPoint)
+        },
         showMessage() {
             alert('message')
         }
@@ -82,7 +87,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.global{
+  input{
+    width: 100%;
+  }
+}
+.comp{
+  margin-top: 40px;
   .container {
     margin-bottom: 20px;
   }
@@ -93,4 +105,5 @@ export default {
   .container2 > div {
     position: relative;
   }
+}
 </style>

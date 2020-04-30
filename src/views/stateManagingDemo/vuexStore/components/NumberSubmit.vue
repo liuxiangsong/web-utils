@@ -7,17 +7,17 @@
 </template>
 
 <script>
-  export default {
+export default {
     data () {
-      return {
-        num: 0,
-      }
+        return {
+            num: 0,
+        }
     },
     methods: {
-      addNumber () {
+        addNumber () {
         // this.$store.commit('addNumber', this.num);
-        this.$store.dispatch('addNumber', this.num)
-      }
+            this.$store.dispatch('addNumber', this.num)
+        }
     },
-  }
+}
 </script>

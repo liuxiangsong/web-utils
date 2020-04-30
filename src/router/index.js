@@ -57,5 +57,12 @@ export default [
             }
         ]
     },
+    {
+        path: '/test',
+        meta: {
+            name: '测试页面'
+        },
+        component: resolve => require(['@/views/test'], resolve)
+    },
     { path: '*', component: () => import('@/views/errorPages/404') }
 ]

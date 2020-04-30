@@ -7,16 +7,16 @@
 <script>
 import dayjs from 'dayjs'
 export default {
-  data() {
-    return {
-      percent: 0.02
+    data() {
+        return {
+            percent: 0.02
+        }
+    },
+    //本地过滤器
+    filters: {
+        dateFilter(date, formatString) {
+            return dayjs(date).format(formatString)
+        }
     }
-  },
-  //本地过滤器
-  filters: {
-    dateFilter(date, formatString) {
-      return dayjs(date).format(formatString)
-    }
-  }
 }
 </script>

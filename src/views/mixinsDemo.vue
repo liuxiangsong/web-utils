@@ -6,18 +6,18 @@
 </template>
 <script>
 import myMixin from '@/mixins/myMixin'
-  export default {
+export default {
     mixins: [myMixin],
     data(){
-      return{}
+        return{}
     },
     created () {
-      console.log('component created hook called')
+        console.log('component created hook called')
     },
     methods: {
-      hello () {
-        console.log('hello from component')
-      }
+        hello () {
+            console.log('hello from component')
+        }
     },
-  }
+}
 </script>
