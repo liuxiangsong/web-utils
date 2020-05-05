@@ -3,7 +3,7 @@
  * @desc 当页面加载时，该元素将获得焦点
  * @example
  * ```vue
- * <div v-focus>
+ * <input v-focus>
  * ```
  */
 export default{

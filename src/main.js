@@ -12,6 +12,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 // import '@/assets/scss/reset.scss'
 import 'normalize.css/normalize.css'
 
+import './icons'
+
 const setDirective=(Vue)=>{
     Object.keys(directives).forEach(v=>Vue.directive(v,directives[v]))
 }
@@ -20,7 +22,7 @@ const setFilter=(Vue)=>{
 }
 setDirective(Vue)
 setFilter(Vue)
-
+ 
 Vue.use(ElementUI)
 // Vue.use(myPlugin)
 Vue.use(VueRouter)

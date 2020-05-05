@@ -36,7 +36,7 @@ function handleFloat(ele,decimalPoint=0) {
     val = val.replace(/^\./g, '0.')
 
     if(parseInt(decimalPoint)>0){
-        const str=`^(\\d+)\\.(\\d\{${decimalPoint}}).*$`
+        const str=`^(\\d+)\\.(\\d{${decimalPoint}}).*$`
         const reg=new RegExp(str)
         val = val.replace(reg, '$1.$2')
     } 

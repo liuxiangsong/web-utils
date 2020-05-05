@@ -1,21 +1,62 @@
 <template>
   <div>
-    <input type="text" @input="onInput"/>
+    <h1>svg-icon</h1>
+    <svg-icon class-name="search-icon" icon-name="search" />
+
+    <div class="statustab-icon">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-add"></use>
+      </svg>
+    </div>
+
+    <h1>input</h1>
+    <input type="text" @input="onInput" />
+
+    <h1>clipboard</h1>
+    <input type="text" @input="onInput" v-model="inputData" />
+    <button v-clipboard:copy='inputData'  >复制内容</button>
+<el-button @click='handleCopy(inputData,$event)'>copy</el-button>
   </div>
 </template>
 
 <script>
-import {handleInput} from '@utils/inputHandle'
-export default {
-    data(){
-        return{
+import { handleInput } from '@utils/inputHandle'
+import clip from '@/utils/clipboard' 
 
+export default {
+    data() {
+        return {
+            inputData: 0
         }
     },
-    methods:{
-        onInput(e){ 
-            handleInput(e.target,'currency')
+    methods: {
+        onInput(e) {
+            handleInput(e.target, 'currency')
+        },
+        handleCopy(text, event) {
+            clip(text, event)
         }
     }
 }
 </script>
+
+<style lang="scss" >
+  .search-icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: red;
+    vertical-align: middle;
+  }
+
+  .statustab-icon {
+    display: inline-block;
+    vertical-align: top;
+    text-align: right;
+    padding-right: 10px;
+    .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+  }
+</style>

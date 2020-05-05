@@ -1,6 +1,7 @@
 import {myrestrict} from './inputRestrict' 
-import focus from './test'
+import focus from './focus'
+import clipboard from './clipboard'
 
 export default {
-    myrestrict,focus
+    myrestrict,focus,clipboard
 }
