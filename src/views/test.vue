@@ -16,13 +16,17 @@
     <input type="text" @input="onInput" v-model="inputData" />
     <button v-clipboard:copy='inputData'  >复制内容</button>
 <el-button @click='handleCopy(inputData,$event)'>copy</el-button>
+
+<div class="box">
+  <div class="content">asdf</div>
+</div>
   </div>
 </template>
 
 <script>
 import { handleInput } from '@utils/inputHandle'
 import clip from '@/utils/clipboard' 
-
+ 
 export default {
     data() {
         return {
@@ -41,6 +45,8 @@ export default {
 </script>
 
 <style lang="scss" >
+  @import '../assets/style/common';
+
   .search-icon {
     cursor: pointer;
     font-size: 18px;
@@ -57,6 +63,14 @@ export default {
       width: 36px;
       height: 36px;
       border-radius: 50%;
+    }
+  }
+  .box{
+    @include flex-align(left);
+    height: 400px;
+    border:solid 1px;
+    .content{
+      border: solid 1px;
     }
   }
 </style>
