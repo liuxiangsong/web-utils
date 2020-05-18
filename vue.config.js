@@ -11,6 +11,7 @@ function resolve(dir) {
 }
   
 module.exports = {
+    runtimeCompiler: true,
     lintOnSave: true,
     publicPath: '/',
     outputDir: 'dist',

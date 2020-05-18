@@ -14,7 +14,7 @@
 
     <h1>clipboard</h1>
     <input type="text" @input="onInput" v-model="inputData" />
-    <button v-clipboard:copy='inputData'  >复制内容</button>
+    <button v-clipboard='inputData'>复制内容</button>
 <el-button @click='handleCopy(inputData,$event)'>copy</el-button>
   </div>
 </template>
