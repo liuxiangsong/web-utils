@@ -1,0 +1,58 @@
+.clearfix::after {
+  display: block;
+  content: '';
+  clear: both;
+}
+
+@mixin scrollBar {
+  &::-webkit-scrollbar {
+    width: 12px;
+    //background: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #dedce3;
+    border-radius: 20px;
+  }
+}
+// 实心三角形  eg: div{@include triangle(20px,20px,red,left);}
+@mixin triangle($width, $height, $color, $direction) {
+  $width: $width/2;
+  $color-border-style: $height solid $color;
+  $transparent-border-style: $width solid transparent;
+  height: 0;
+  width: 0;
+
+  @if $direction==up {
+    border-bottom: $color-border-style;
+    border-left: $transparent-border-style;
+    border-right: $transparent-border-style;
+  } @else if $direction==right {
+    border-left: $color-border-style;
+    border-top: $transparent-border-style;
+    border-bottom: $transparent-border-style;
+  } @else if $direction==down {
+    border-top: $color-border-style;
+    border-left: $transparent-border-style;
+    border-right: $transparent-border-style;
+  } @else if $direction==left {
+    border-right: $color-border-style;
+    border-top: $transparent-border-style;
+    border-bottom: $transparent-border-style;
+  }
+}
+
+@mixin flex-align($x_align: center, $y_align: center) {
+  display: flex;
+  justify-content: $x_align;
+  align-items: $y_align;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
