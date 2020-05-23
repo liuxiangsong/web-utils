@@ -64,5 +64,12 @@ export default [
         },
         component: resolve => require(['@/views/test'], resolve)
     },
+    {
+        path: '/tableDemo',
+        meta: {
+            name: '表格'
+        },
+        component: resolve => require(['@/views/table/tableDemo'], resolve)
+    },
     { path: '*', component: () => import('@/views/errorPages/404') }
 ]

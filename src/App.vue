@@ -56,6 +56,7 @@ export default {
 
 <style lang="scss">
 #app{
+  @import './assets/style/dialog.scss';
   .el-aside {
     background-color: #545c64;
     color: #333;

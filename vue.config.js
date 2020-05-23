@@ -15,37 +15,13 @@ module.exports = {
     lintOnSave: true,
     publicPath: '/',
     outputDir: 'dist',
-    assetsDir: 'static',
-    configureWebpack: {
-        resolve: { 
-            alias
-        },
-        //     module:{
-        //         rules:[
-        //             {
-        //                 test: /\.svg$/,
-        //                 loader: 'svg-sprite-loader',
-        //                 include: [resolve('src/icons')],
-        //                 options: {
-        //                     symbolId: 'icon-[name]'
-        //                 }
-        //             },
-        //             // {
-        //             //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        //             //     loader: 'url-loader',
-        //             //     options: {
-        //             //         limit: 10000,
-        //             //         name: 'images/[name].[hash:8].[ext]',
-        //             //         // name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        //             //     },
-        //             //     exclude: [resolve('src/icons')]
-        //             // }, 
-                  
-    //         ]
-    //     }
-    },
+    assetsDir: 'static', 
+    // devServer: { 
+    //     before: require('./mock/mock-server.js')
+    // },
+
     chainWebpack(config) { 
-    
+        config.resolve.alias.merge(alias)
         //set svg-sprite-loader
         config.module
             .rule('svg')

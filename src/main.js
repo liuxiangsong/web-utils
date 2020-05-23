@@ -14,6 +14,12 @@ import 'normalize.css/normalize.css'
 
 import './icons'
 
+
+if (process.env.NODE_ENV !== 'production') {
+    const { mockXHR } = require('../mock')
+    mockXHR() 
+}
+
 const setDirective=(Vue)=>{
     Object.keys(directives).forEach(v=>Vue.directive(v,directives[v]))
 }

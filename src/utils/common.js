@@ -19,3 +19,15 @@ export function getContactNumbers(contactNumber) {
     }) 
     return { phones, telephones }
 }
+
+/**
+ * 取得url中查询参数的值
+ * @param {string} param 参数名称
+ */
+export function getUrlParamValue(param){
+    var reg = new RegExp('(^|&|/?)'+param+'=([^&]*)(&|$)', 'i')
+    let arr=  reg.exec( window.location.search)
+    if(arr&&arr.length>1){
+        return arr[2]
+    } 
+}
