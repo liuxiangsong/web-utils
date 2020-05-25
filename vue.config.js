@@ -16,10 +16,21 @@ module.exports = {
     publicPath: '/',
     outputDir: 'dist',
     assetsDir: 'static', 
-    // devServer: { 
-    //     before: require('./mock/mock-server.js')
-    // },
-
+    devServer: { 
+        before: require('./mock/mock-server.js')
+    },
+    pages:{
+        index: { 
+            entry: 'src/main.js', 
+            template: 'public/index.html',
+        },
+        page1:{
+            entry: 'src/pages/page1/index.main.js',          
+            template: 'src/pages/page1/index.html', 
+            filename:'page1.html', 
+            chunks:['chunk-vendors','page1']
+        }, 
+    },
     chainWebpack(config) { 
         config.resolve.alias.merge(alias)
         //set svg-sprite-loader

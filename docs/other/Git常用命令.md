@@ -1,3 +1,5 @@
+_注：此文档默认远程版本库名为 origin_
+
 # 常用命令
 
 - `git init [仓库名称]` //仓库名称为空时，则在当前文件夹下生成.git 文件夹
@@ -8,6 +10,8 @@
 - `git pull origin [branch name]`
 - `git push origin [branch name]`
 - `git restore .`
+- `git reset --soft HEAD~`
+- `git commit --amend` //修改最近一次 commit 注释
 
 # 操作分支相关命令
 
@@ -20,7 +24,7 @@
 - 新建并拉取远程分支：`git checkout -b [name] origin/[name]`
 - 删除分支： `git branch -d [name]`
 - 合并分支： `git merge [name]`
-- \_创建远程分支(本地分支 push 到远程)： `git push origin [name]`
+- 创建远程分支(本地分支 push 到远程)： `git push origin [name]`
 
 # stash
 
@@ -36,10 +40,14 @@
 # 远程仓库相关命令
 
 - 查看远程仓库： `git remote -v`
+- 查看远程仓库信息：`git remote show origin`
 - 删除远程仓库： `git remote rm [name]`
+- 更新本地关联的远程分支：`git remote update origin --prune`
 
-# 常用命令
+# 版本回退
 
-- 修改最近一次 commit 注释: git commit --amend
+- `git reset --soft HEAD~` //~后可加数字，默认为 1；eg HEAD~2,表示回退 2 个版本
+- `git reset [<mode>] [<commit>]` //mode：--soft, --hard, --mixed; --soft 不会修改暂存区和工作区中的内容，而--hard 则会彻底还原至上次提交的状态，本次提交的内容会被清除
+- `git log --pretty=oneline` //查看提交日志，参数 oneline 表示一行显示
 
 [参考文档](https://gitee.com/liaoxuefeng/learn-java/raw/master/teach/git-cheatsheet.pdf)

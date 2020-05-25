@@ -31,7 +31,8 @@ export default [
     {
         url: '/web-utils/article/list',
         type: 'get',
-        response: () => {  
+        response: config => {  
+            console.log(config.query)
             return {
                 code: 0,
                 data: {

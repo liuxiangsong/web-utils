@@ -20,7 +20,7 @@ function registerRoutes(app) {
     return {
         mockRoutesLength: mockRoutesLength,
         mockStartIndex: mockLastIndex - mockRoutesLength
-    }
+    } 
 }
 
 function unregisterRoutes() {
@@ -43,7 +43,7 @@ const responseFake = (url, type, respond) => {
     }
 }
 
-module.exports = app => {
+module.exports = app => { 
     // es6 polyfill
     require('@babel/register')
 
@@ -54,28 +54,24 @@ module.exports = app => {
         extended: true
     }))
 
-    const mockRoutes = registerRoutes(app)
-    var mockRoutesLength = mockRoutes.mockRoutesLength
-    var mockStartIndex = mockRoutes.mockStartIndex
+    let {mockRoutesLength,mockStartIndex} = registerRoutes(app) 
 
     // watch files, hot reload mock server
     chokidar.watch(mockDir, {
         ignored: /mock-server/,
         ignoreInitial: true
-    }).on('all', (event, path) => {
+    }).on('all', (event, path) => { 
         if (event === 'change' || event === 'add') {
             try {
                 // remove mock routes stack
                 app._router.stack.splice(mockStartIndex, mockRoutesLength)
-
                 // clear routes cache
                 unregisterRoutes()
-
+ 
                 const mockRoutes = registerRoutes(app)
                 mockRoutesLength = mockRoutes.mockRoutesLength
                 mockStartIndex = mockRoutes.mockStartIndex
-
-                console.log(chalk.magentaBright(`\n > Mock Server hot reload success! changed  ${path}`))
+                console.log(chalk.gray(`\n > Mock Server hot reload success! changed  ${path}`))       
             } catch (error) {
                 console.log(chalk.redBright(error))
             }

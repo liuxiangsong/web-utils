@@ -49,7 +49,7 @@ export default {
     },
     methods:{
         async testApi(){
-            let res=await fetchList()
+            let res=await fetchList({id:10})
             console.log(res)
         }
     }

@@ -31,3 +31,27 @@ export function getUrlParamValue(param){
         return arr[2]
     } 
 }
+
+export function getIP () {
+    const doc = document
+    const script = doc.createElement('script')
+    const head = doc.getElementsByTagName('head')[0]
+    script.src = '//pv.sohu.com/cityjson?ie=utf-8'
+    head.appendChild(script)
+    return  window.returnCitySN['cip'] || '0:0:0:0:0:0:0:1' 
+}
+
+/**
+ * 取得url中的全部参数
+ * @param {string} url 
+ */
+export function getUrlParams(url){
+    var regex = /[?&]([^=#]+)=([^&#]*)/g
+    let   params = {}
+    let  match
+    // eslint-disable-next-line no-cond-assign
+    while( match = regex.exec(url)) {
+        params[match[1]] = match[2]
+    }
+    return params
+}
