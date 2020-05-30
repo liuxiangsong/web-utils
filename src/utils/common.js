@@ -1,6 +1,6 @@
 import REGULAR_EXP from './regularExp'
-/**
- * 取得字符串中格式正确的手机号和座机号
+/** 取得字符串中格式正确的手机号和座机号
+ * @method getContactNumbers
  * @param {string} contactNumber 
  */
 export function getContactNumbers(contactNumber) {
@@ -20,32 +20,33 @@ export function getContactNumbers(contactNumber) {
     return { phones, telephones }
 }
 
-/**
- * 取得url中查询参数的值
- * @param {string} param 参数名称
+/** 获取客户端ip
+ * @method getClientIp
+ * @param {Number} timeout 
+ * @return {Promise} 
  */
-export function getUrlParamValue(param){
-    var reg = new RegExp('(^|&|/?)'+param+'=([^&]*)(&|$)', 'i')
-    let arr=  reg.exec( window.location.search)
-    if(arr&&arr.length>1){
-        return arr[2]
-    } 
+export function getClientIp(timeout=500) {
+    return new Promise((resolve, reject) => {
+        const headNode = document.querySelector('head')
+        const script = document.createElement('script')
+        script.src = '//pv.sohu.com/cityjson?ie=utf-8'
+        headNode.appendChild(script)
+        setTimeout(() => {
+            headNode.removeChild(script)
+            resolve(window.returnCitySN['cip'] || '0:0:0:0:0:0:0:1')
+            delete window.returnCitySN
+        }, timeout)
+    })
 }
 
-export function getIP () {
-    const doc = document
-    const script = doc.createElement('script')
-    const head = doc.getElementsByTagName('head')[0]
-    script.src = '//pv.sohu.com/cityjson?ie=utf-8'
-    head.appendChild(script)
-    return  window.returnCitySN['cip'] || '0:0:0:0:0:0:0:1' 
-}
-
-/**
- * 取得url中的全部参数
- * @param {string} url 
+/** 取得url中的全部参数
+ * @method getUrlParams
+ * @param {string} url 默认值为window.location.href
  */
 export function getUrlParams(url){
+    if(!url){
+        url=window.location.href
+    }
     var regex = /[?&]([^=#]+)=([^&#]*)/g
     let   params = {}
     let  match

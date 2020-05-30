@@ -71,5 +71,26 @@ export default [
         },
         component: resolve => require(['@/views/table/tableDemo'], resolve)
     },
+    {
+        path: '/excel',
+        meta: {
+            name: 'Excel表格'
+        },
+        component: resolve => require(['@/views/excel'], resolve),
+        redirect:'/exportExcel',
+        children:[{
+            path: '/exportExcel',
+            meta: {
+                name: '导出Excel'
+            },
+            component: resolve => require(['@/views/excel/exportExcel'], resolve)
+        },{
+            path: '/importExcel',
+            meta: {
+                name: '导入Excel'
+            },
+            component: resolve => require(['@/views/excel/importExcel'], resolve)
+        }] 
+    },
     { path: '*', component: () => import('@/views/errorPages/404') }
 ]

@@ -26,7 +26,7 @@
 <script>
 import { handleInput } from '@utils/inputHandle'
 import clip from '@/utils/clipboard' 
- 
+import jsonp from '@utils/jsonp'
 export default {
     data() {
         return {
@@ -40,6 +40,13 @@ export default {
         handleCopy(text, event) {
             clip(text, event)
         }
+    },
+    mounted(){
+        jsonp('https://api.map.baidu.com/location/ip', {
+            ak: 'Hgps6PooEPzjPtfGRvwgK8Iw6c5K8hk7',
+        }).then((res) => {
+            console.log( res)
+        })
     }
 }
 </script>

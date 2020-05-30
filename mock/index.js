@@ -1,7 +1,9 @@
-import article from './article'
+import waybill from './data/waybill'
+import article from './data/article'
 
 const mocks=[
-    ...article
+    ...article,
+    ...waybill
 ]
 
 export default mocks

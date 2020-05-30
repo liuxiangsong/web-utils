@@ -1,4 +1,4 @@
-# 调用公用方法
+# 调用帮助类方法
 
 ```html
 <el-button @click="handleCopy(inputData,$event)">复制</el-button>

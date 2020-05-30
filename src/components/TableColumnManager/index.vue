@@ -41,9 +41,13 @@ export default {
         tableColumns:{
             type:Array,
             validator:function(cols){
-                if(!cols.every(col=>Object.keys(col).indexOf('text')>-1)){//Object.keys(col).indexOf('visible' )>-1&&
+                if(!cols.every(col=>Object.keys(col).indexOf('text')>-1)){
                     console.log('tableColumns中的所有列必须都包含text属性')
                     return false
+                }
+                if(!cols.every(col=>Object.keys(col).indexOf('visible')>-1)){ 
+                    console.log('提示：tableColumns中的某些列不包含visible属性')
+                    return true
                 }
                 return true  
             }
@@ -85,7 +89,7 @@ export default {
                 this.$message('表格列不能全部隐藏')
                 return
             }
-            this.$emit('update:columns',this.columns.map(c=>Object.assign({},c)))
+            this.$emit('update:tableColumns',this.columns.map(c=>Object.assign({},c)))
             this.dialogVisible=false 
             this.$emit('onSaved', this.columns) 
         }

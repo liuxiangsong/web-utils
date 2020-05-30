@@ -48,7 +48,6 @@ module.exports = {
             .options({
                 symbolId: 'icon-[name]'
             })
-            .end()
      
     }
 }

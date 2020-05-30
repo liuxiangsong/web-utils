@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <!-- <script type="text/javascript" src="https://api.map.baidu.com/location/ip?ak=Hgps6PooEPzjPtfGRvwgK8Iw6c5K8hk7&callback=jsonp_323"></script> -->
+    <!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> -->
+  </head>
+  <body>
+    <script>
+      // import jsonp from '../src/utils/jsonp.js'
+
+      // function jsonp(url, params) {
+      //   return new Promise((resolve, reject) => {
+      //     params = params || {}
+      //     const randomString = (
+      //       Math.floor(Math.random() * 100000) * Date.now()
+      //     ).toString(16)
+
+      //     const callbackQuery = params.callbackQuery || 'callback'
+      //     const callbackName = params.callbackName || `jsonp_${randomString}`
+      //     params[callbackQuery] = callbackName
+      //     delete params.callbackQuery
+      //     delete params.callbackName
+
+      //     const queryString = Object.keys(params)
+      //       .map((p) => `${p}=${params[p]}`)
+      //       .join('&')
+      //     const headNode = document.querySelector('head')
+
+      //     window[callbackName] = (res) => {
+      //       resolve(res)
+      //       delete window[callbackName]
+      //       headNode.removeChild(script)
+      //     }
+
+      //     let script = document.createElement('script')
+      //     script.src = url + (/\?/.test(url) ? '&' : '?') + queryString
+      //     headNode.appendChild(script)
+      //   })
+      // }
+
+      function getClientIp(timeout = 500) {
+        return new Promise((resolve, reject) => {
+          const headNode = document.querySelector('head')
+          const script = document.createElement('script')
+          script.src = '//pv.sohu.com/cityjson?ie=utf-8'
+          headNode.appendChild(script)
+          setTimeout(() => {
+            headNode.removeChild(script)
+            resolve(window.returnCitySN['cip'] || '0:0:0:0:0:0:0:1')
+            delete window.returnCitySN
+          }, timeout)
+        })
+      }
+      getClientIp().then((res) => {
+        console.log('res', res)
+      })
+
+      // jsonp('https://api.map.baidu.com/location/ip', {
+      //   ak: 'Hgps6PooEPzjPtfGRvwgK8Iw6c5K8hk7',
+      // }).then((res) => {
+      //   console.log('res', res)
+      // })
+      // let url = 'https://pv.sohu.com/cityjson?ie=utf-8'
+      // this.jsonp(url)
+      // jsonp({
+      //   url: 'https://api.map.baidu.com/location/ip',
+      //   params: {
+      //     ak: 'Hgps6PooEPzjPtfGRvwgK8Iw6c5K8hk7',
+      //   },
+      //   // success(res) {
+      //   //   console.log(res)
+      //   // },
+      // })
+    </script>
+  </body>
+</html>
