@@ -134,7 +134,7 @@ export function exportTableToExcel ({id, filename = '空', bookType = 'xlsx', st
         var ws = XLSX.utils.table_to_sheet(theTable)
         styleFun(ws)
         var wb = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(wb, ws, 'SheetJS')
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1')
         var wbout = XLSX.write(wb, {
             bookType: bookType,
             bookSST: false,
