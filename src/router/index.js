@@ -65,11 +65,25 @@ export default [
         component: resolve => require(['@/views/test'], resolve)
     },
     {
-        path: '/tableDemo',
+        path: '/table',
         meta: {
             name: '表格'
         },
-        component: resolve => require(['@/views/table/tableDemo'], resolve)
+        redirect:'/tableCloumnManager',
+        component: resolve => require(['@/views/table'], resolve),
+        children:[{
+            path: '/tableCloumnManager',
+            meta: {
+                name: '表格列管理'
+            },
+            component: resolve => require(['@/views/table/tableCloumnManager'], resolve),
+        },{
+            path: '/editableTable',
+            meta: {
+                name: '可编辑表格'
+            },
+            component: resolve => require(['@/views/table/editableTable'], resolve),
+        }]
     },
     {
         path: '/excel',

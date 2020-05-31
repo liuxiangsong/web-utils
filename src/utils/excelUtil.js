@@ -13,9 +13,10 @@ import XLSX from 'xlsx'
  * @param {sheetName} options.sheetName [sheet1] sheet名称
  * @param {Array} customizeThead 自定义表头,支持多级表头 eg:[['序号']]；
  * @param {Array} cellMerges 单元格合并规则 eg:['A1:A2','B1:E1','F1:H1','I1:L1']
+ * @param {Boolean} autoWidth 宽度是否自适应 
  */
 export  function exportExcel({
-    theadColumns,jsonData,filename='excel',excelType='xlsx',sheetName='sheet1',customizeThead=[],cellMerges=[]
+    theadColumns,jsonData,filename='excel',excelType='xlsx',sheetName='sheet1',customizeThead=[],cellMerges=[],autoWidth=true
 }){ 
     if(!theadColumns||!theadColumns){
         throw new Error('theadColumns 和 jsonData 不能为空')
@@ -30,7 +31,9 @@ export  function exportExcel({
             sheet['!merges'].push(XLSX.utils.decode_range(item))
         })
     }
-    
+    if (autoWidth) {
+        setColumnWidth(sheet,aoa)
+    }
     let workbook = {
         SheetNames: [sheetName],
         Sheets: {}
@@ -45,6 +48,40 @@ export  function exportExcel({
     let wbout = XLSX.write(workbook, wopts)
     let blob = new Blob([s2ab(wbout)], {type:'application/octet-stream'})
     saveAs(blob,`${filename}.${excelType}`)
+}
+
+//// 设置宽度
+function setColumnWidth(worksheet,data){      
+    /*设置worksheet每列的最大宽度*/
+    const colWidth = data.map(row => row.map(val => {
+        /*先判断是否为null/undefined*/
+        if (val == null) {
+            return {
+                'wch': 10
+            }
+        }
+        /*再判断是否为中文*/
+        else if (val.toString().charCodeAt(0) > 255) {
+            return {
+                'wch': val.toString().length * 2
+            }
+        } else {
+            return {
+                'wch': val.toString().length
+            }
+        }
+    }))
+    /*以第一行为初始值*/
+    let result = colWidth[0]
+    for (let i = 1; i < colWidth.length; i++) {
+        for (let j = 0; j < colWidth[i].length; j++) {
+            if (result[j]['wch'] < colWidth[i][j]['wch']) {
+                result[j]['wch'] = colWidth[i][j]['wch']
+            }
+        }
+    }
+    worksheet['!cols'] = result
+    console.log('result :>> ', result)
 }
 
 /**

@@ -30,6 +30,7 @@
 <script>
 import draggable from 'vuedraggable'
 export default {
+    name: 'TableColumnManager',
     components: {
         draggable
     },
@@ -39,6 +40,7 @@ export default {
             default:false
         },
         tableColumns:{
+            required:true,
             type:Array,
             validator:function(cols){
                 if(!cols.every(col=>Object.keys(col).indexOf('text')>-1)){
