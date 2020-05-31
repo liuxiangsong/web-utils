@@ -39,34 +39,29 @@ export default {
         this.tableData=res.data.items
     },
     methods:{
-        exportExcel(){ 
-            //             // 表格数据
-            //             const list = Array.from({length: 10000}, () => ({
-            //                 date: '2016-05-03',
-            //                 name: '王小虎 广西壮族自治区 柳 州市 其它区',
-            //                 address: '上海市普陀区金沙江路 1516 弄'
-            //             }))
-            //             list.unshift({
-            //                 date: '2016-05-03',
-            //                 name: '王小虎',
-            //                 address: '上海'
-            //             })
-            //             list.unshift({
-            //                 date: '2016-05-03',
-            //                 name: '王',
-            //                 address: '上'
-            //             })
-            //             let theadColumns=[{prop:'name',text:'经销商名称'},
-            //                 {prop:'date',text:'下单时间'},
-            //                 {prop:'orderNumber',text:'订单编号'},
-            //                 {prop:'address',text:'客户名称'}] 
-
-            // import('@utils/excelUtil').then(excel=>{
-            //     excel.exportExcel({theadColumns ,jsonData:list,filename:'excel',excelType:'xls'})
-            // })  
-
+        exportExcel(){  
+            let  styleFun=function (ws) {
+                ws['B2'].s = {
+                    font: {
+                        name: '宋体',
+                        sz: 18,
+                        color: {rgb: 'ff0000'},
+                        bold: true,
+                        italic: false,
+                        underline: false
+                    },
+                    alignment: {
+                        horizontal: 'center',
+                        vertical: 'center'
+                    },
+                    fill: {
+                        fgColor: {rgb: '008000'},
+                    },
+                }
+            }
           import('@utils/excelUtil').then(excel=>{
-              excel.exportExcel({theadColumns:this.tableColumns,jsonData: this.tableData,filename:'excel',excelType:'xls'})
+              excel.exportExcel({theadColumns:this.tableColumns,jsonData: this.tableData,filename:'excel',
+                  excelType:'xlsx',styleFun})
           })   
         },
         exportCustomizeHeaderExcel(){

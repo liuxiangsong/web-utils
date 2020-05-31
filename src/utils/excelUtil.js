@@ -13,10 +13,12 @@ import XLSX from 'xlsx'
  * @param {sheetName} options.sheetName [sheet1] sheet名称
  * @param {Array} customizeThead 自定义表头,支持多级表头 eg:[['序号']]；
  * @param {Array} cellMerges 单元格合并规则 eg:['A1:A2','B1:E1','F1:H1','I1:L1']
- * @param {Boolean} autoWidth 宽度是否自适应 
+ * @param {Boolean} autoWidth 宽度是否自适应(注：导出xls类型的excel不支持) 
+ * @param {Function} styleFun(参数是当前表格worksheet) 样式函数方法
  */
 export  function exportExcel({
-    theadColumns,jsonData,filename='excel',excelType='xlsx',sheetName='sheet1',customizeThead=[],cellMerges=[],autoWidth=true
+    theadColumns,jsonData,filename='excel',excelType='xlsx',sheetName='sheet1',
+    customizeThead=[],cellMerges=[],autoWidth=true, styleFun = () => {}
 }){ 
     if(!theadColumns||!theadColumns){
         throw new Error('theadColumns 和 jsonData 不能为空')
@@ -38,7 +40,10 @@ export  function exportExcel({
         SheetNames: [sheetName],
         Sheets: {}
     }
-    workbook.Sheets[sheetName] = sheet
+    workbook.Sheets[sheetName] = sheet 
+    // 暴露样式设置
+    styleFun(sheet)  //https://github.com/livelyPeng/pl-export-excel
+    console.log('styleFun :>> ', styleFun)
     // 生成excel的配置项
     let wopts = {
         bookType: excelType, // 要生成的文件类型
@@ -80,13 +85,12 @@ function setColumnWidth(worksheet,data){
             }
         }
     }
-    worksheet['!cols'] = result
-    console.log('result :>> ', result)
+    worksheet['!cols'] = result 
 }
 
 /**
- * 将json数据转化为数组
- * @param {Array} theadColumnss  表头 eg:[{prop:'id',text:'序号'}]
+ * 将jsonData和表头数组转化为字符串数组  Array<object>转化为Array<string>
+ * @param {Array} theadColumns  表头 eg:[{prop:'id',text:'序号'}]
  * @param {Array} jsonData 导出json数据 eg:[{prop:1}]
  * @param {Array} customizeThead 自定义表头 eg:[['序号']]
  * @return eg:[[序号][1]]
@@ -117,6 +121,28 @@ function s2ab(s) {
     return buf
 }
 
+/**
+ * 通过table标签渲染导出表格
+ * @param id 需要导出表格的ID
+ * @param filename 表格名
+ * @param bookType 文件类型
+ * @param styleFun(参数是当前表格ws) 样式函数方法
+ */
+export function exportTableToExcel ({id, filename = '空', bookType = 'xlsx', styleFun = () => {}} = {}) {
+    if (id) {
+        var theTable = document.getElementById(id)
+        var ws = XLSX.utils.table_to_sheet(theTable)
+        styleFun(ws)
+        var wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, 'SheetJS')
+        var wbout = XLSX.write(wb, {
+            bookType: bookType,
+            bookSST: false,
+            type: 'binary'
+        })
+        saveAs(new Blob([s2ab(wbout)], { type: '' }), filename + '.' + bookType)
+    }
+}
 /* --- Import Functions --- */
 
 /**
