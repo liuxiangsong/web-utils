@@ -13,8 +13,9 @@ export default {
     }, 
     computed: {
         numbers () {
-        // return this.$store.state.numbers;
-            return this.$store.getters.getNumbers 
+            console.log('this.$store :>> ', this.$store)
+            // return this.$store.state.vuexStoreDemo.numbers 
+            return this.$store.getters['vuexStoreDemo/getNumbers'] 
         }
     },
 }

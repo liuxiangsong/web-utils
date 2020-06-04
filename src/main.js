@@ -1,7 +1,6 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue' 
 import App from './App.vue'
-import routes from '@/router'
+import router from '@/router'
 import store from '@/store'
 
 // import myPlugin from './plugins/myPlugin'
@@ -25,10 +24,7 @@ setFilter(Vue)
  
 Vue.use(ElementUI)
 // Vue.use(myPlugin)
-Vue.use(VueRouter)
-const router = new VueRouter({
-    routes
-})
+
 
 Vue.config.productionTip = false
 

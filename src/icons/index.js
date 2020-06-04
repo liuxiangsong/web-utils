@@ -4,6 +4,7 @@ import SvgIcon from '@comps/SvgIcon'
 
 Vue.component('svg-icon', SvgIcon)
 
-const req = require.context('./svg', false, /\.svg$/)
+//https://webpack.js.org/guides/dependency-management/#requirecontext
+const req = require.context('./svg', false, /\.svg$/) 
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 requireAll(req)
