@@ -11,19 +11,20 @@ module.exports={
     logo: '/assets/img/favicon.ico',
     // navbar:false,   //禁用顶部导航栏
     nav:[
-      { text: 'web-utils', link: '/web-utils/' },
+      { text: '指南', link: '/web-utils/' },
     ],
     // sidebar:'auto',
-    sidebarDepth:2,  //默认为1，将提取h2的标题；0为禁用标题链接；2：提取h2和h3标题
+    // sidebarDepth:3,  //默认为1，将提取h2的标题；0为禁用标题链接；2：提取h2和h3标题
     // sidebar:[
     //   '/',
     //   ['/page1','测试页面']
     // ],
     sidebar:{
       '/web-utils/': [{
-        title: 'The Feathers guide',
+        title: '指南',
         collapsable: false,
         children: [
+          '',
          {title:'sd',path: '/clipboard.md'},
           'components.md',
           'utils.md',
