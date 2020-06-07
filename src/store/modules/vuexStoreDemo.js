@@ -1,4 +1,5 @@
 export default {
+    namespaced: true,
     state: { numbers: [1] },
     getters: {
         getNumbers(state) {

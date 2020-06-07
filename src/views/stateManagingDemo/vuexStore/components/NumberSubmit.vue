@@ -14,9 +14,8 @@ export default {
         }
     },
     methods: {
-        addNumber () {
-        // this.$store.commit('addNumber', this.num);
-            this.$store.dispatch('addNumber', this.num)
+        addNumber () { 
+            this.$store.dispatch('vuexStoreDemo/addNumber', this.num)
         }
     },
 }
