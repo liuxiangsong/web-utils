@@ -15,6 +15,9 @@ export function handleInput(ele,type,decimalPoint){
         case 'float':
             handleFloat(ele,decimalPoint)
             break    
+        case 'hanzi':
+            ele.value = ele.value.replace(/[^\u4E00-\u9FA5]/, '')
+            break
     }
 }
 
