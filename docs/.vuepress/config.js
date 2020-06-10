@@ -19,13 +19,13 @@ module.exports={
         title: '指南',
         collapsable: false,
         children: [
-          '',
-         {title:'sd',path: '/clipboard.md'},
-          'components.md',
-          'utils.md',
-          'vue plugin.md', 
+       
+         {title:'剪贴板',path: 'clipboard.md'},
+         {title:'组件',path: 'components.md'},
+          {title:'工具类方法',path:'utils.md'},
+          {title:'vue 插件',path:'vue plugin.md'}, 
         ]
-      },'vue plugin.md']
+      }]
     }, 
     displayAllHeaders: true // 默认值：false 
     // smoothScroll: true
