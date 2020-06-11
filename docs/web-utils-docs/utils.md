@@ -1,28 +1,30 @@
-# ExcelHelper.js
+# 工具类方法
 
-## 读取 Excel
+## ExcelUtil.js
 
-### 使用
+### 读取 Excel
 
-- 第二个入参headerIndex，从0开始，标识以哪一行为表头，默认以excel的一行为表头
+#### 使用
 
-- 出参jsonData为表格数据，header为表头列
+- 第二个入参 headerIndex，从 0 开始，标识以哪一行为表头，默认以 excel 的一行为表头
+
+- 出参 jsonData 为表格数据，header 为表头列
 
 ```js
 import('@utils/excelHelper').then(async (excel) => {
-  let {jsonData,header}= await excel.readExcel(file,1)
+  let { jsonData, header } = await excel.readExcel(file, 1)
   this.tableHeader = header
   this.tableData = jsonData
 })
 ```
 
-### 注意
+#### 注意
 
-- 如果excel中单元格的值为空，则该单元格对应的属性不会存在于最终的jsonData中。
+- 如果 excel 中单元格的值为空，则该单元格对应的属性不会存在于最终的 jsonData 中。
 
-## 导出 Excel
+### 导出 Excel
 
-### 使用
+#### 使用
 
 - 导出标准表格
 
@@ -55,7 +57,7 @@ import('@utils/excelHelper').then((excel) => {
 })
 ```
 
-### 参数
+#### 参数
 
 |      参数      |       说明       |  类型  |       可选值       | 默认值 |           示例           |
 | :------------: | :--------------: | :----: | :----------------: | :----: | :----------------------: |

@@ -25,6 +25,7 @@ _注：此文档默认远程版本库名为 origin_
 - 删除分支： `git branch -d [name]`
 - 合并分支： `git merge [name]`
 - 创建远程分支(本地分支 push 到远程)： `git push origin [name]`
+- 删除远程分支: `git push origin --delete [name]`
 
 # stash
 
