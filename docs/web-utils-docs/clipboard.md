@@ -1,4 +1,6 @@
-# 调用帮助类方法
+# clipboard
+
+## 调用工具类方法
 
 ```html
 <el-button @click="handleCopy(inputData,$event)">复制</el-button>
@@ -14,7 +16,7 @@ methods: {
 }
 ```
 
-# 使用指令
+## 使用指令
 
 ```html
 <el-button v-clipboard="'inputData'">复制</el-button>

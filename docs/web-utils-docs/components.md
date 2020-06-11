@@ -1,19 +1,21 @@
-# TableColumnManager（表格列管理）
+# 组件
 
-## 使用方式
+## TableColumnManager（表格列管理）
+
+### 使用方式
 
 ```css
 <table-column-manager :visible.sync="tableColumnManagerVisible" :tableColumns.sync="tableColumns" />
 ```
 
-## 说明
+### 说明
 
 - 拖曳排序基于 vuedraggable 实现，所以需安装 vuedraggable 包。
 - tableColumns 数组中的每个对象必须包含 text 属性（表格列显示的文本）。
 
-# SvgIcon
+## SvgIcon
 
-## 使用方式
+### 使用方式
 
 1. 安装 svg-sprite-loader 包；
 2. 修改 vue.config.js 中的 webpack 配置；
@@ -45,7 +47,7 @@
 <svg-icon class-name="search-icon" icon-name="search" />
 ```
 
-## 说明
+### 说明
 
 - class-name ：设置图标的样式， 如颜色、字体大小等。
 - icon-name ：图标名称
