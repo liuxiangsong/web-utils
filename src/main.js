@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from '@/router'
 import store from '@/store'
 
+import './permission'
 // import myPlugin from './plugins/myPlugin'
 import directives from './directives'
 import * as filters from './filters'

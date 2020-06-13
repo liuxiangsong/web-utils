@@ -16,6 +16,35 @@
         enabled. Please enable it to continue.</strong
       >
     </noscript>
+    <!--[if lt IE 9]>
+      <style type="text/css">
+        .lowie {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 999;
+        }
+        .lowie .centent {
+          color: #333;
+          font-size: 26px;
+          line-height: 50px;
+          width: 100%;
+          height: 300px;
+          text-align: center;
+          position: absolute;
+          top: 50%;
+          margin-top: -180px;
+        }
+      </style>
+      <div class="lowie">
+        <div class="centent">
+          <h2>您的浏览器版本过低，<br />为了更好的体验，建议您升级浏览器</h2>
+          <a href="http://browsehappy.osfipin.com/" target="_blank">去升级</a>
+        </div>
+      </div>
+    <![endif]-->
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>

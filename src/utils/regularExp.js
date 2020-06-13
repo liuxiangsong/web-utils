@@ -1,8 +1,8 @@
 export default { 
     //整数含负数
-    integerAndNagitive: /^-?\d*$/,  
+    integerAndNagitive: /^-?\d+$/,  
     //正整数        
-    integer: /^\d*$/,   
+    integer: /^\d+$/,   
     //非零正整数                    
     integerNonZero:/^[1-9]\d*$/,
     //正数值            
@@ -14,14 +14,16 @@ export default {
     //金额（最多两位小数） 
     currency: /^\d*[.,]?\d{0,2}$/,
     //字母
-    alphabet: /^[a-z]*$/i, 
+    alphabet: /^[a-z]+$/i, 
     // 5-15位非中文字符 (密码)                  
     password: /^[^\u4e00-\u9fa5]{5,15}$/, 
     //身份证号码
     idCard: /^[1-9]\d{5}[1-9]\d{3}((0[1-9])|(1[0-2]))((0[1-9])|([1-2]\d)|(3[0-1]))((\d{4})|(\d{3}[Xx]))$/,
     email: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
     //包含中文
-    includeChineseCharacter:/[\u4e00-\u9fa5]/,
+    includeChinese:/[\u4e00-\u9fa5]/,
+    //全部为中文
+    chinese:/^[\u4E00-\u9FA5]+$/,
     //座机号
     landlinePhone:/(^(0\d{2,3}-)?([2-9]\d{6,7}|400\d{6,7})(-\d{1,7})?$)|(^(400-)?[2-9]{6,7}$)/, 
     //手机号
@@ -30,6 +32,7 @@ export default {
     mobilePhone:/^1[3|4|5|6|7|8|9]\d{9}$/,
     //普通字符
     genaralText:/^[\u4E00-\u9FA5A-Za-z0-9()（）\-－*,，.~。？?！@#￥%……&*——+!@#$%^&*()_{}《》\\|【】[,\]<>!@#$%^&*_\u0020\u3000]+$/,
-    externalLink:/^(https?:|mailto:|tel:)/
+    externalLink:/^(https?:|mailto:|tel:)/,
+    ip:/((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))/,
 
 }

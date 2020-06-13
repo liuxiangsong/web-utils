@@ -1,5 +1,5 @@
 export function saveFile(base64,filename){
-    let blob=  this.base64ToBlob(base64)
+    let blob=  base64ToBlob(base64)
     if (window.navigator.msSaveOrOpenBlob) {//msSaveOrOpenBlob方法返回bool值
         navigator.msSaveBlob(blob, filename)//本地保存
     } else {
