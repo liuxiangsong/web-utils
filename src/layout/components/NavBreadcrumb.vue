@@ -8,8 +8,8 @@
 
     <el-breadcrumb class="app-navbreadcrumb" separator="/">
       <el-breadcrumb-item v-for="(route,index) in currentRoutes" :key="index">
-        <span v-if="index===currentRoutes.length-1" class="no-redirect">{{route.meta.name}}</span>
-        <a v-else :to="{path:route.path}">{{route.meta.name}}</a>
+        <span v-if="index===currentRoutes.length-1" class="no-redirect">{{route.meta.title}}</span>
+        <a v-else :to="{path:route.path}">{{route.meta.title}}</a>
       </el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -39,7 +39,7 @@ export default {
         },
         getCurrentRoutes() {
             this.currentRoutes = this.$route.matched.filter(
-                item => item.meta && item.meta.name
+                item => item.meta && item.meta.title
             )
         }
     },
@@ -57,7 +57,7 @@ export default {
 <style lang="scss" scoped>
   .hamburger-container {
     padding: 0 15px;
-    line-height: 56px;
+    line-height: 46px;
     height: 100%;
     float: left;
     cursor: pointer;
@@ -78,7 +78,7 @@ export default {
   .app-navbreadcrumb.el-breadcrumb {
     display: inline-block;
     font-size: 14px;
-    line-height: 60px;
+    line-height: 50px;
     margin-left: 8px;
 
     .no-redirect {

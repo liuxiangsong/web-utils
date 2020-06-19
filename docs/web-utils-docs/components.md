@@ -44,11 +44,11 @@
 ```
 
 ```css
-<svg-icon class-name="search-icon" icon-name="search" />
+<svg-icon class-name="search-icon" icon-class="search" />
 ```
 
 ### 说明
 
 - class-name ：设置图标的样式， 如颜色、字体大小等。
-- icon-name ：图标名称
+- icon-class ：图标类名
 - 详细说明可参考[手摸手，带你优雅的使用 icon](https://juejin.im/post/59bb864b5188257e7a427c09)

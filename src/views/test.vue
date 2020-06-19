@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>svg-icon</h1>
-    <svg-icon class-name="search-icon" icon-name="search" />
+    <svg-icon class-name="search-icon" icon-class="search" />
 
     <div class="statustab-icon">
       <svg class="icon" aria-hidden="true">

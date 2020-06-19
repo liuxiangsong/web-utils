@@ -8,6 +8,8 @@ import './permission'
 import directives from './directives'
 import * as filters from './filters'
 import ElementUI from 'element-ui'
+import Contextmenu from 'vue-contextmenujs'
+
 import 'element-ui/lib/theme-chalk/index.css'
 // import '@/assets/scss/reset.scss'
 import 'normalize.css/normalize.css'
@@ -24,6 +26,7 @@ setDirective(Vue)
 setFilter(Vue)
  
 Vue.use(ElementUI)
+Vue.use(Contextmenu)
 // Vue.use(myPlugin)
 
 
