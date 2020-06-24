@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-view-container">
+  <div id="tag-view-container" class="tag-view-container">
     <el-scrollbar :vertical="false" class="scroll-container">
       <router-link tag="span" v-for="tag in visitedViews" :key="tag.path" draggable="false" :class="isActiveTag(tag)?'active':''" class="tag-view-item" :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }" @contextmenu.prevent.native="onContextmenu(tag,$event)">
         {{tag.meta.title || '未命名'}}

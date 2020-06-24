@@ -1,9 +1,7 @@
 <template>
   <div class="app-container">
-    <el-container>
-       <el-aside width="200px">
-          <nav-menu />
-       </el-aside>
+    <el-container> 
+          <nav-sidebar /> 
      
       <el-container>
         <el-header>
@@ -19,14 +17,14 @@
 </template>
 
 <script>
-import NavMenu from './components/NavMenu'
+import NavSidebar from './components/NavSidebar'
 import NavBreadcrumb from './components/NavBreadcrumb'
 import TagView from './components/TagView'
 import ContainerMain from './components/ContainerMain'
 export default {
     name: 'layout',
-    components: {
-        NavMenu,
+    components: { 
+        NavSidebar,
         NavBreadcrumb,
         TagView,
         ContainerMain
@@ -36,12 +34,17 @@ export default {
 
 <style lang="scss" scoped>
 .app-container{
-  .el-header{
+  height: 100%;
+  .el-container{
+     height: 100%;
+       .el-header{
     height:120px !important;
     padding:0;
   }
 .el-main{
   background:white;
 }
+  }
+
 }
 </style>

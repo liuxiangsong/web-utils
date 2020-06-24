@@ -1,5 +1,6 @@
 <template>
- <div v-if="isExternal" :style="styleOfExternalIcon" class="svg-icon svg-icon-external" v-on="$listeners" />
+ <i v-if="iconClass.startsWith('el-icon')" :class="iconClass"></i>
+ <div v-else-if="isExternal" :style="styleOfExternalIcon" class="svg-icon svg-icon-external" v-on="$listeners" />
   <svg v-else :class="['svg-icon',className]" aria-hidden="true" v-on="$listeners">
     <use :xlink:href="`#icon-${iconClass}`"></use>
   </svg>

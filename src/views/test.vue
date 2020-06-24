@@ -17,9 +17,7 @@
     <button v-clipboard='inputData'>复制内容</button>
 <el-button @click='handleCopy(inputData,$event)'>copy</el-button>
 
-<div class="box">
-  <div class="content">asdf</div>
-</div>
+ 
   </div>
 </template>
 
