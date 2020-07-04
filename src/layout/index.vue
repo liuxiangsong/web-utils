@@ -1,16 +1,15 @@
 <template>
   <div class="app-container">
-    <el-container>
-       <el-aside width="200px">
-          <nav-menu />
-       </el-aside>
+    <el-container> 
+          <nav-sidebar /> 
      
       <el-container>
         <el-header>
-          <nav-breadcrumb></nav-breadcrumb>
+          <nav-breadcrumb/>
+          <tag-view/>
         </el-header>
         <el-main>
-          <router-view></router-view>
+         <container-main/>
         </el-main>
       </el-container>
     </el-container>
@@ -18,16 +17,34 @@
 </template>
 
 <script>
-import NavMenu from './components/NavMenu'
+import NavSidebar from './components/NavSidebar'
 import NavBreadcrumb from './components/NavBreadcrumb'
+import TagView from './components/TagView'
+import ContainerMain from './components/ContainerMain'
 export default {
     name: 'layout',
-    components: {
-        'nav-menu': NavMenu,
-        'nav-breadcrumb': NavBreadcrumb
+    components: { 
+        NavSidebar,
+        NavBreadcrumb,
+        TagView,
+        ContainerMain
     }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.app-container{
+  height: 100%;
+  .el-container{
+     height: 100%;
+       .el-header{
+    height:120px !important;
+    padding:0;
+  }
+.el-main{
+  background:white;
+}
+  }
+
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>svg-icon</h1>
-    <svg-icon class-name="search-icon" icon-name="search" />
+    <svg-icon class-name="search-icon" icon-class="search" />
 
     <div class="statustab-icon">
       <svg class="icon" aria-hidden="true">
@@ -17,9 +17,7 @@
     <button v-clipboard='inputData'>复制内容</button>
 <el-button @click='handleCopy(inputData,$event)'>copy</el-button>
 
-<div class="box">
-  <div class="content">asdf</div>
-</div>
+ 
   </div>
 </template>
 

@@ -1,7 +1,8 @@
 <template>
- <div v-if="isExternal" :style="styleOfExternalIcon" class="svg-icon svg-icon-external" v-on="$listeners" />
+ <i v-if="iconClass.startsWith('el-icon')" :class="iconClass"></i>
+ <div v-else-if="isExternal" :style="styleOfExternalIcon" class="svg-icon svg-icon-external" v-on="$listeners" />
   <svg v-else :class="['svg-icon',className]" aria-hidden="true" v-on="$listeners">
-    <use :xlink:href="`#icon-${iconName}`"></use>
+    <use :xlink:href="`#icon-${iconClass}`"></use>
   </svg>
 </template>
 
@@ -11,7 +12,7 @@ import REGULAR_EXP from '@utils/regularExp'
 export default {
     name: 'SvgIcon',
     props: {
-        iconName: {
+        iconClass: {
             type: String,
             required: true
         },
@@ -22,12 +23,12 @@ export default {
     },
     computed:{
         isExternal() {
-            return REGULAR_EXP.externalLink.test(this.iconName)
+            return REGULAR_EXP.externalLink.test(this.iconClass)
         },
         styleOfExternalIcon() {
             return {
-                mask: `url(${this.iconName}) no-repeat 50% 50%`,
-                '-webkit-mask': `url(${this.iconName}) no-repeat 50% 50%`
+                mask: `url(${this.iconClass}) no-repeat 50% 50%`,
+                '-webkit-mask': `url(${this.iconClass}) no-repeat 50% 50%`
             }
         }
     }

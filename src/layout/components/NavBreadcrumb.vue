@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="hamburger-container" @click="toggleClick">
+    <div id="hamburger-container" class="hamburger-container" @click="toggleClick">
       <svg :class="{'is-active':isActive}" class="hamburger" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
         <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM142.4 642.1L298.7 519a8.84 8.84 0 0 0 0-13.9L142.4 381.9c-5.8-4.6-14.4-.5-14.4 6.9v246.3a8.9 8.9 0 0 0 14.4 7z" />
       </svg>
     </div>
 
-    <el-breadcrumb class="app-navbreadcrumb" separator="/">
+    <el-breadcrumb id="app-navbreadcrumb" class="app-navbreadcrumb" separator="/">
       <el-breadcrumb-item v-for="(route,index) in currentRoutes" :key="index">
-        <span v-if="index===currentRoutes.length-1" class="no-redirect">{{route.meta.name}}</span>
-        <a v-else :to="{path:route.path}">{{route.meta.name}}</a>
+        <span v-if="index===currentRoutes.length-1" class="no-redirect">{{route.meta.title}}</span>
+        <a v-else :to="{path:route.path}">{{route.meta.title}}</a>
       </el-breadcrumb-item>
     </el-breadcrumb>
 
     <div class="right-menu">
-      <screenfull class="right-menu-item"></screenfull>
+      <screenfull id="screenfull" class="right-menu-item"></screenfull>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
         },
         getCurrentRoutes() {
             this.currentRoutes = this.$route.matched.filter(
-                item => item.meta && item.meta.name
+                item => item.meta && item.meta.title
             )
         }
     },
@@ -57,7 +57,7 @@ export default {
 <style lang="scss" scoped>
   .hamburger-container {
     padding: 0 15px;
-    line-height: 56px;
+    line-height: 46px;
     height: 100%;
     float: left;
     cursor: pointer;
@@ -78,7 +78,7 @@ export default {
   .app-navbreadcrumb.el-breadcrumb {
     display: inline-block;
     font-size: 14px;
-    line-height: 60px;
+    line-height: 50px;
     margin-left: 8px;
 
     .no-redirect {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-tooltip :content="isFullscreen?'退出全屏':'全屏'" effect="dark" placement="bottom">
-      <svg-icon :icon-name="isFullscreen?'fullscreen-exit':'fullscreen'" @click="handleClick" />
+      <svg-icon :icon-class="isFullscreen?'fullscreen-exit':'fullscreen'" @click="handleClick" />
     </el-tooltip>
   </div>
 </template>

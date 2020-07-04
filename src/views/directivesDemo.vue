@@ -38,6 +38,7 @@
 <script>
 import {handleInput} from '@utils/inputHandle'
 export default {
+    name:'directivesDemo',
     data() {
         return {
             message: '测试'
