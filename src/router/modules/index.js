@@ -107,6 +107,18 @@ const dynamicRoutes = [
         ],
     },
     {
+        path: '/componentDemos',
+        component: Layout, 
+        children: [
+            {
+                path: '/componentDemos',
+                name: 'componentDemos',
+                meta: {title: '组件示例',},
+                component: () =>import('@/views/componentDemos'),
+            },
+        ],
+    },
+    {
         path: '/table',
         meta: {title: '表格'},
         component: Layout, 
