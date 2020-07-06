@@ -9,7 +9,12 @@ const path = require('path')
 function resolve(dir) {
     return path.join(__dirname, dir)
 }
-  
+
+const pagesConfig=require('./src/pages/pagesConfig.js')
+pagesConfig.index={ 
+    entry: 'src/main.js', 
+    template: 'public/index.html',
+}
 module.exports = {
     runtimeCompiler: true,
     lintOnSave: true,
@@ -19,18 +24,7 @@ module.exports = {
     devServer: { 
         before: require('./mock/mock-server.js')
     },
-    pages:{
-        index: { 
-            entry: 'src/main.js', 
-            template: 'public/index.html',
-        },
-        page1:{
-            entry: 'src/pages/page1/index.main.js',          
-            template: 'src/pages/page1/index.html', 
-            filename:'page1.html', 
-            chunks:['chunk-vendors','page1']
-        }, 
-    },
+    pages:pagesConfig,
     chainWebpack(config) { 
         config.resolve.alias.merge(alias)
         //set svg-sprite-loader

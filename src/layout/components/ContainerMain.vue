@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section style="height:100%">
     <keep-alive :include="cachedViews">
       <router-view :key="key"/>
     </keep-alive>
@@ -9,7 +9,7 @@
 <script>
 export default {
     computed: {
-        cachedViews() { 
+        cachedViews() {
             return this.$store.state.tagView.cachedViews
         },
         key() {

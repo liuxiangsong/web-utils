@@ -19,7 +19,7 @@ const mutations={
     },
     deleteCachedView:(state,view)=>{
         let index = state.cachedViews.indexOf(view.name)
-        index > -1 && state.cachedViews.splice(index, 1) 
+        index > -1 && state.cachedViews.splice(index, 1)
     },
     deleteOthersView:(state,view)=>{
         state.visitedViews=state.visitedViews.filter(v=>v.meta.fix||v.path===view.path)

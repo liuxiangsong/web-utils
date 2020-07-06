@@ -8,6 +8,9 @@ const state={
 const mutations={
     setRoutes:(state,routes)=>{
         state.routes=constantRoutes.concat(routes)
+    },
+    clearRoutes:state=>{
+        state.routes=[]
     }
 }
 

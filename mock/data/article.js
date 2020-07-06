@@ -17,7 +17,7 @@ for (let i = 0; i < count; i++) {
     }))
 }
 
-export default [
+module.exports=[
     {
         url: '/web-utils/article/list',
         type: 'get',
@@ -32,7 +32,5 @@ export default [
             }
         }
     },
-
- 
 ]
 

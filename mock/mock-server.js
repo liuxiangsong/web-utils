@@ -43,7 +43,7 @@ const responseFake = (url, type, respond) => {
     }
 }
 
-module.exports = app => { 
+module.exports = app => {
     // es6 polyfill
     require('@babel/register')
 

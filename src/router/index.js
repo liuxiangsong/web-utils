@@ -18,12 +18,12 @@ Vue.use(VueRouter)
  */
 export const constantRoutes=[
     {
-        path: 'redirect',
+        path: '/redirect',
         component: Layout, 
         hidden: true,
         children: [
             {
-                path: '/redirect/:path',
+                path: '/redirect/:path(.*)',
                 component: () => import('@/views/redirect'),
             }
         ]
@@ -40,6 +40,12 @@ export const constantRoutes=[
                 component: (resolve) => require(['@/views/guide'], resolve),
             },
         ]
+    },
+    {
+        path: '/login',
+        name: 'login',
+        hidden:true,
+        component: (resolve) => require(['@/views/login'], resolve),
     }
 ]
 

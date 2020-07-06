@@ -44,6 +44,9 @@ export default {
         .el-submenu > .el-submenu__title .el-submenu__icon-arrow {
           display: none;
         }
+         .el-menu li [class^=el-icon-]{
+           margin-left: 15px;
+         }
         .el-menu-item,
         .el-submenu__title,
         .el-tooltip {

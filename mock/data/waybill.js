@@ -21,8 +21,7 @@ for (let i = 0; i < count; i++) {
         createTime:'@datetime',
     }))
 }
-
-export default [
+module.exports=[
     {
         url: '/web-utils/waybill/list',
         type: 'get',

@@ -57,18 +57,18 @@ const dynamicRoutes = [
             },
         ],
     },
-    {
-        path: '/pluginsDemo',
-        component: Layout,
-        redirect: '/pluginsDemo/index',
-        children: [
-            {
-                path: 'index',
-                meta: {title: '插件(pluginsDemo)demo'},
-                component: resolve => require(['@/views/pluginsDemo'], resolve)
-            },
-        ],
-    },
+    // {
+    //     path: '/pluginsDemo',
+    //     component: Layout,
+    //     redirect: '/pluginsDemo/index',
+    //     children: [
+    //         {
+    //             path: 'index',
+    //             meta: {title: '插件(pluginsDemo)demo'},
+    //             component: resolve => require(['@/views/pluginsDemo'], resolve)
+    //         },
+    //     ],
+    // },
     {
         path: '/stateManagingDemo',
         meta: {title: '状态管理demo'},
@@ -103,6 +103,18 @@ const dynamicRoutes = [
                 name: 'test',
                 meta: {title: '测试页面',},
                 component: () =>import(/* webpackChunkName: 'TestPage' */ '@/views/test'),
+            },
+        ],
+    },
+    {
+        path: '/splitPanel',
+        component: Layout, 
+        children: [
+            {
+                path: 'index',
+                name: 'splitPanel',
+                meta: {title: '分割面板',},
+                component: () =>import('@/views/splitPanel'),
             },
         ],
     },
@@ -151,6 +163,18 @@ const dynamicRoutes = [
             {
                 path: 'https://github.com/liuxiangsong/web-utils',
                 meta: { title: '外链菜单' },
+            },
+        ],
+    },
+    {
+        path: '/externalPage',
+        component: Layout, 
+        children: [
+            {
+                path: 'index',
+                name: 'externalPage',
+                meta: {title: '外部页面',},
+                component: () =>import(/* webpackChunkName: 'TestPage' */ '@/views/externalPage'),
             },
         ],
     },

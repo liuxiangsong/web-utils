@@ -60,8 +60,10 @@ export default {
         refreshSelectedTag() {
             this.$store.commit('tagView/deleteCachedView', this.selectedTag)
             const { fullPath } = this.selectedTag
-            this.$router.replace({
-                path: '/redirect' + fullPath
+            this.$nextTick(()=>{
+                this.$router.replace({
+                    path: '/redirect' + fullPath
+                })
             })
         },
         closeSelectedTag(route) {
@@ -123,6 +125,8 @@ export default {
       }
       &.active {
         background-color: white;
+        color: #ff9300;
+        font-weight: bold;
       }
       /deep/ .el-icon-close {
         width: 16px;
