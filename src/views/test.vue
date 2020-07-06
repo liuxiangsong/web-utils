@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>svg-icon</h1>
+    <h1>1、利用transform袖三角图形</h1>
+    <div class="triangle"></div>
+
+    <h1>2、svg-icon</h1>
     <svg-icon class-name="search-icon" icon-class="search" />
 
     <div class="statustab-icon">
@@ -52,6 +55,28 @@ export default {
 
 <style lang="scss" >
   @import '../assets/style/common';
+.triangle{
+  width: 200px;
+  height: 35px;
+  border: 1px solid;
+  position: relative;
+  &::after{
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-right:1px solid;
+    border-bottom: 1px solid;
+    transform: rotate(45deg);
+    transition: all 0.3s;
+  }
+  &:hover::after{
+    transform: rotate(225deg);
+    top: 16px;
+  }
+}
 
   .search-icon {
     cursor: pointer;

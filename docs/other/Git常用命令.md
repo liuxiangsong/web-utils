@@ -49,8 +49,15 @@
 
 ## 版本回退
 
-- `git reset --soft HEAD~` //~后可加数字，默认为 1；eg HEAD~2,表示回退 2 个版本
+- `git reset --soft/hard HEAD~` //~后可加数字，默认为 1；eg HEAD~2,表示回退 2 个版本
 - `git reset [<mode>] [<commit>]` //mode：--soft, --hard, --mixed; --soft 不会修改暂存区和工作区中的内容，而--hard 则会彻底还原至上次提交的状态，本次提交的内容会被清除
 - `git log --pretty=oneline` //查看提交日志，参数 oneline 表示一行显示
+
+## git 代理
+
+- git config --global https.proxy [http://127.0.0.1:1080]
+- git config --global https.proxy [https://127.0.0.1:1080]
+- git config --global --unset http.proxy
+- git config --global --unset https.proxy
 
 [参考文档](https://gitee.com/liaoxuefeng/learn-java/raw/master/teach/git-cheatsheet.pdf)
