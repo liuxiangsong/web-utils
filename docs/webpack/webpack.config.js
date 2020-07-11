@@ -14,6 +14,7 @@
     - MiniCssExtractPlugin:把css提取成单独文件。（安装mini-css-extract-plugin）
     - OptimizeCssAssetsWebpackPlugin：压缩css。（安装optimize-css-assets-webpack-plugin）
     - CleanWebpackPlugin:构建前清除打包输出文件目录下的所有文件。（安装clean-webpack-plugin）
+    - CopyWebpackPlugin
   7、css兼容性处理使用postcss-loader，兼容性配置写在package.json里的browserslist中，
      如果需使用其开发环境配置，则设置node环境变量process.env.NODE_ENV='development'
   8、Eslint:
@@ -80,242 +81,247 @@
     - externals和dll
 */
 
-const webpack = require('webpack');
-const { resolve } = require('path');
+const webpack = require('webpack')
+const { resolve } = require('path')
 // 生成html页面
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 提取css成单独的文件
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // 压缩css
-const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 // 构建前清除dist目录中的内容
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
-const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
+const path = require('path')
 // 设置node环境变量,决定使用browserlist的哪个环境。
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'development'
 
 // 复用css loader
 const commonCssLoader = [
-  // //创建style标签，并插入html中
-  // 'style-loader',
-  // // 该loader取代style-loader，用于提取css成单独文件
-  MiniCssExtractPlugin.loader,
-  // 将css文件整合到js文件中
-  'css-loader',
-  /*
+    // //创建style标签，并插入html中
+    // 'style-loader',
+    // // 该loader取代style-loader，用于提取css成单独文件
+    MiniCssExtractPlugin.loader,
+    // 将css文件整合到js文件中
+    'css-loader',
+    /*
       css兼容性处理：postcss,需安装 postcss-loader、postcss-preset-env
       - postcss-preset-env 帮postcss找到package.json中browserslist里面的配置，通过配置加载指定的css兼容性样式:
       - 默认使用package.json中browserslist的生产环境配置
       - 如果修改使用开发环境配置，则设置node环境变量process.env.NODE_ENV='development'
   */
-  // 如果需修改loader的默认配置，则要写成对象
-  {
-    loader: 'postcss-loader',
-    options: {
-      ident: 'postcss',
-      plugins: () => [require('postcss-preset-env')()],
+    // 如果需修改loader的默认配置，则要写成对象
+    {
+        loader: 'postcss-loader',
+        options: {
+            ident: 'postcss',
+            plugins: () => [require('postcss-preset-env')()],
+        },
     },
-  },
-];
+]
 
 module.exports = {
-  // 启用HMR后，需将html文件添加到entry里，否则html文件不能热更新
-  entry: ['./src/js/index.js', './src/index.html'], // './src/index.js'
-  output: {
+    // 启用HMR后，需将html文件添加到entry里，否则html文件不能热更新
+    entry: ['./src/js/index.js', './src/index.html'], // './src/index.js'
+    output: {
     // 多入口时，文件名可以用[name]来对应入口文件名，eg:filename:'js/[name].[contenthash:10].js'
-    filename: 'js/build.[contenthash:10].js',
-    // 打包输出根目录
-    path: resolve(__dirname, 'dist'),
-  },
-  module: {
+        filename: 'js/build.[contenthash:10].js',
+        // 打包输出根目录
+        path: resolve(__dirname, 'dist'),
+    },
+    module: {
     // loader的配置
-    rules: [
-      // 处理js资源
-      {
-        /*
+        rules: [
+            // 处理js资源
+            {
+                /*
           eslint语法检查：需安装eslint-loader、eslint
           检查规则使用airbnb：需要安装eslint-config-airbnb-base、eslint-plugin-import
         */
-        test: /\.js$/,
-        exclude: /node_modules/,
-        // 优先执行
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        options: {
-          fix: true, // 自动修复eslint的错误
-        },
-      },
-      {
-        // oneOf内的loader只会匹配一个，所以oneOf内不能配置两个或以上的loader去处理同一种类型的文件。
-        oneOf: [
-          /*
+                test: /\.js$/,
+                exclude: /node_modules/,
+                // 优先执行
+                enforce: 'pre',
+                loader: 'eslint-loader',
+                options: {
+                    fix: true, // 自动修复eslint的错误
+                },
+            },
+            {
+                // oneOf内的loader只会匹配一个，所以oneOf内不能配置两个或以上的loader去处理同一种类型的文件。
+                oneOf: [
+                    /*
         当一个文件要被多个loader处理时，需要注意loader的执行先后顺序，在use中的loader为从右往左
         如：js文件同时要用eslint-loader和babel-loader处理时，eslint-loader要写在上面，或者在eslint-loader中配置enforce:'pre'（指示优先执行）
        */
-          {
-            test: /\.js$/,
-            // 排除node_modules下的js文件
-            exclude: /node_modules/,
-            use: [
-              // 开启多进程打包 ，thread-loader必须放在相应loader的前面。
-              // 如不需修改进程配置选项，可直接写成'thread-loader',不需写成对象
-              {
-                loader: 'thread-loader',
-                options: {
-                  workers: 2, // 进程2个
-                },
-              },
-              {
-                loader: 'babel-loader',
-                options: {
-                  // 预设：指示babel如何处理兼容性
-                  presets: [
-                    [
-                      '@babel/preset-env',
-                      {
-                        useBuiltIns: 'usage',
-                        // 指定core-js版本
-                        corejs: {
-                          version: 3,
-                        },
-                        // 指定兼容性至浏览器的哪个版本
-                        targets: {
-                          chrome: '60',
-                          firefox: '60',
-                          ie: '9',
-                          safari: '10',
-                          edge: '17',
-                        },
-                      },
-                    ],
-                  ],
-                  // 开启babel缓存
-                  cacheDirectory: true,
-                },
-              },
-            ],
+                    {
+                        test: /\.js$/,
+                        // 排除node_modules下的js文件
+                        exclude: /node_modules/,
+                        use: [
+                            // 开启多进程打包 ，thread-loader必须放在相应loader的前面。
+                            // 如不需修改进程配置选项，可直接写成'thread-loader',不需写成对象
+                            {
+                                loader: 'thread-loader',
+                                options: {
+                                    workers: 2, // 进程2个
+                                },
+                            },
+                            {
+                                loader: 'babel-loader',
+                                options: {
+                                    // 预设：指示babel如何处理兼容性
+                                    presets: [
+                                        [
+                                            '@babel/preset-env',
+                                            {
+                                                useBuiltIns: 'usage',
+                                                // 指定core-js版本
+                                                corejs: {
+                                                    version: 3,
+                                                },
+                                                // 指定兼容性至浏览器的哪个版本
+                                                targets: {
+                                                    chrome: '60',
+                                                    firefox: '60',
+                                                    ie: '9',
+                                                    safari: '10',
+                                                    edge: '17',
+                                                },
+                                            },
+                                        ],
+                                    ],
+                                    // 开启babel缓存
+                                    cacheDirectory: true,
+                                },
+                            },
+                        ],
 
-          },
-          // 处理css资源
-          {
-            test: /\.css$/,
-            use: [...commonCssLoader],
-          },
-          // 处理scss资源
-          {
-            // 需安装node-sass、sass-loader
-            test: /\.scss$/,
-            use: [...commonCssLoader, 'sass-loader'],
-          },
-          // 处理图片资源
-          {
-            // 处理图片资源（默认处理不了html中img图片）
-            // 需安装file-loader、url-loader
-            test: /\.(jpg|png|gif)$/,
-            // 要使用多个loader处理时用use;只使用一个loader时，用loader
-            // 处理样式中的url图片资源
-            loader: 'url-loader',
-            options: {
-              // 图片大小小于7kb时，转化为base64(优点：减少请求，缺点：转化为base64后，图片文件大小会更大)
-              // Type: Boolean|Number|String
-              limit: 7 * 1024,
-              // url-loader默认使用es6模块解析，而html-loader引入图片是commonjs，解析时会解析成[object Module]
-              // 解决方法：关闭url-loader的es6模块化，使用commonjs解析
-              esModule: false,
-              // 命名规则：[hash:10]取图片hash名的前10位;[ext]原文件扩展名
-              name: '[hash:10].[ext]',
-              // 文件输出存放目录
-              outputPath: 'imgs',
+                    },
+                    // 处理css资源
+                    {
+                        test: /\.css$/,
+                        use: [...commonCssLoader],
+                    },
+                    // 处理scss资源
+                    {
+                        // 需安装node-sass、sass-loader
+                        test: /\.scss$/,
+                        use: [...commonCssLoader, 'sass-loader'],
+                    },
+                    // 处理图片资源
+                    {
+                        // 处理图片资源（默认处理不了html中img图片）
+                        // 需安装file-loader、url-loader
+                        test: /\.(jpg|png|gif)$/,
+                        // 要使用多个loader处理时用use;只使用一个loader时，用loader
+                        // 处理样式中的url图片资源
+                        loader: 'url-loader',
+                        options: {
+                            // 图片大小小于7kb时，转化为base64(优点：减少请求，缺点：转化为base64后，图片文件大小会更大)
+                            // Type: Boolean|Number|String
+                            limit: 7 * 1024,
+                            // url-loader默认使用es6模块解析，而html-loader引入图片是commonjs，解析时会解析成[object Module]
+                            // 解决方法：关闭url-loader的es6模块化，使用commonjs解析
+                            esModule: false,
+                            // 命名规则：[hash:10]取图片hash名的前10位;[ext]原文件扩展名
+                            name: '[hash:10].[ext]',
+                            // 文件输出存放目录
+                            outputPath: 'imgs',
+                        },
+                    },
+                    // 处理html文件中的img图片
+                    {
+                        test: /\.html$/,
+                        // 处理html文件中的img图片（负责引入img，从而能被url-loader进行处理）
+                        loader: 'html-loader',
+                    },
+                    // 处理其它资源
+                    {
+                        // 排除指定资源外，其它资源使用file-loader处理
+                        exclude: /\.(css|scss|js|json|html|jpg|png|gif)$/,
+                        loader: 'file-loader',
+                        options: {
+                            name: '[hash:10].[ext]',
+                            outputPath: 'media',
+                        },
+                    },
+                ],
             },
-          },
-          // 处理html文件中的img图片
-          {
-            test: /\.html$/,
-            // 处理html文件中的img图片（负责引入img，从而能被url-loader进行处理）
-            loader: 'html-loader',
-          },
-          // 处理其它资源
-          {
-            // 排除指定资源外，其它资源使用file-loader处理
-            exclude: /\.(css|scss|js|json|html|jpg|png|gif)$/,
-            loader: 'file-loader',
-            options: {
-              name: '[hash:10].[ext]',
-              outputPath: 'media',
-            },
-          },
         ],
-      },
-    ],
-  },
-  plugins: [
+    },
+    plugins: [
     // 需安装html-webpack-plugin
-    new HtmlWebpackPlugin({
-      // 生成html使用的模板
-      template: './src/index.html',
-      // // 压缩html代码
-      // minify: {
-      //   collapseWhitespace: true,
-      //   removeComments: true,
-      // },
-    }),
-    // 需安装mini-css-extract-plugin,其次替换style-loader
-    // 用于提取css成单独文件
-    new MiniCssExtractPlugin({
-      // 对输出的css文件进行重命名
-      filename: 'css/main.[contenthash:10].css',
-    }),
-    // 压缩css
-    new OptimizeCssAssetsWebpackPlugin(),
-    // 清除打包输出文件目录下的所有文件
-    new CleanWebpackPlugin(),
-    // 生成一个serviceWorker配置文件
-    new WorkboxWebpackPlugin.GenerateSW({
-      /**
+        new HtmlWebpackPlugin({
+            // 生成html使用的模板
+            template: './src/index.html',
+            // // 压缩html代码
+            // minify: {
+            //   collapseWhitespace: true,
+            //   removeComments: true,
+            // },
+        }),
+        // 需安装mini-css-extract-plugin,其次替换style-loader
+        // 用于提取css成单独文件
+        new MiniCssExtractPlugin({
+            // 对输出的css文件进行重命名
+            filename: 'css/main.[contenthash:10].css',
+        }),
+        // 压缩css
+        new OptimizeCssAssetsWebpackPlugin(),
+        // 清除打包输出文件目录下的所有文件
+        new CleanWebpackPlugin(),
+        //将test文件夹中的文件复制到打包后生成的dist文件夹中
+        new CopyWebpackPlugin([{
+            from: path.resolve(__dirname, '../test'),
+        }]),
+        // 生成一个serviceWorker配置文件
+        new WorkboxWebpackPlugin.GenerateSW({
+            /**
        * 1、帮助serviceWorker快速启动
        * 2、删除旧的serviceWorker
        */
-      clientsClaim: true,
-      skipWaiting: true,
-    }),
-    // 告诉webpack哪些库不参与打包，
-    new webpack.DllReferencePlugin({
-      manifest: resolve(__dirname, 'dll/manifest.json'),
-    }),
-    // 将filepath中指定的文件复制到webpack输出根目录，并在html中添加对该文件的引用
-    new AddAssetHtmlWebpackPlugin({
-      filepath: resolve(__dirname, 'dll/vendors.js'),
-    }),
-  ],
-  /**
+            clientsClaim: true,
+            skipWaiting: true,
+        }),
+        // 告诉webpack哪些库不参与打包，
+        new webpack.DllReferencePlugin({
+            manifest: resolve(__dirname, 'dll/manifest.json'),
+        }),
+        // 将filepath中指定的文件复制到webpack输出根目录，并在html中添加对该文件的引用
+        new AddAssetHtmlWebpackPlugin({
+            filepath: resolve(__dirname, 'dll/vendors.js'),
+        }),
+    ],
+    /**
    * 1、可以将node_modules中的代码单独打包一个chunk最终输出
    * 2、自动分析多入口chunk中，有没有超出一定大小的公共文件，如果有，则会把打包成单独的一个chunk.
    */
-  optimization: {
-    splitChunks: {
-      // all表示同步和异步代码都进行代码分割，默认值为async
-      chunks: 'all',
+    optimization: {
+        splitChunks: {
+            // all表示同步和异步代码都进行代码分割，默认值为async
+            chunks: 'all',
+        },
     },
-  },
-  mode: 'development', // development 、 production
-  // 需安装webpack-dev-server（启动devServer指令：npx webpack-dev-server)
-  devServer: {
+    mode: 'development', // development 、 production
+    // 需安装webpack-dev-server（启动devServer指令：npx webpack-dev-server)
+    devServer: {
     // 项目构建后路径
-    contentBase: resolve(__dirname, 'dist'),
-    // 启动gzip压缩
-    compress: true,
-    port: 8087,
-    // 自动打开浏览器
-    open: true,
-    // 开启HMR
-    hot: true,
-  },
-  devtool: 'eval-source-map', // 'eval-source-map'
-  // // 排除对某些包进行打包
-  // externals: {
-  //   // 忽略库名：npm包名
-  //   jquery: 'jQuery',
-  // },
-};
+        contentBase: resolve(__dirname, 'dist'),
+        // 启动gzip压缩
+        compress: true,
+        port: 8087,
+        // 自动打开浏览器
+        open: true,
+        // 开启HMR
+        hot: true,
+    },
+    devtool: 'eval-source-map', // 'eval-source-map'
+    // // 排除对某些包进行打包
+    // externals: {
+    //   // 忽略库名：npm包名
+    //   jquery: 'jQuery',
+    // },
+}

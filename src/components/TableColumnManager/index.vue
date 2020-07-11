@@ -56,8 +56,7 @@ export default {
         }
     },
     data() {
-        return {
-            dialogVisible: false,
+        return { 
             isIndeterminate: true,
             checkAll: false,
             columns:this.tableColumns.map(c=>Object.assign({},c)),
@@ -96,14 +95,24 @@ export default {
             this.$emit('onSaved', this.columns) 
         }
     },
-    watch:{
-        visible(val){
-            this.dialogVisible=val
-        },
-        dialogVisible(val){
-            this.$emit('update:visible',val)
+    computed:{
+        dialogVisible:{
+            get:function(){
+                return this.dialogVisible
+            },
+            set:function(val){
+                this.$emit('update:visible',val)
+            }
         }
     }
+    // watch:{
+    //     visible(val){
+    //         this.dialogVisible=val
+    //     },
+    //     dialogVisible(val){
+    //         this.$emit('update:visible',val)
+    //     }
+    // }
 }
 </script>
 
