@@ -1,4 +1,6 @@
-# @mixin 和 @include
+# scss
+
+## @mixin 和 @include
 
 - 语法：
   - @mixin <name> { ... } 、@mixin name(<arguments...>) { ... }
@@ -19,7 +21,7 @@
 
 - 注：没有参数时，可不加括号。
 
-# @extend
+## @extend
 
 - 语法：@extend <selector>
 - eg:
@@ -37,12 +39,12 @@
 
 - 注：@extend 和@mixin 区别：@extend 可理解为继承,而@include 则仅为@mixin 的占位符，因此使用@mixin 生成的 css 代码量会更多。
 
-# @import
+## @import
 
 - 语法：@import <url>
 - eg: @import './common.scss'
 
-# 变量
+## 变量
 
 - 语法：<variable>: <expression>
 - eg：
@@ -56,7 +58,7 @@ $border-dark: rgba($base-color, 0.88);
 }
 ```
 
-# 流程控制
+## 流程控制
 
 - 语法：
   - @for <variable> from <expression> to <expression> { ... } //不包含最后一个数

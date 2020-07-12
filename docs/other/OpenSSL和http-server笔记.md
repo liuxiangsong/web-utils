@@ -1,4 +1,6 @@
-# OpenSSL 生成证书
+# OpenSSL 和 http-server 笔记
+
+## OpenSSL 生成证书
 
 1. [下载 OpenSSL](https://oomake.com/download/openssl);
 2. 运行下载的 exe 文件安装 openSSL
@@ -7,7 +9,7 @@
 
 > openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
 
-# 安装 http-server
+## 安装 http-server
 
 > `npm install http-server -g`
 

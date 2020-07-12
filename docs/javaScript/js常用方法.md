@@ -1,31 +1,33 @@
-# ES5
+# js 常用方法
+
+## ES5
 
 - Array 方法：every、some 、forEach、filter 、indexOf、lastIndexOf、isArray、map、reduce、reduceRight。
 - String.prototype.trim。
 
-## filter
+### filter
 
 - 语法：array.filter(function(currentValue,index,arr), thisValue)
   - 除 currentValue 外，其它参数可选。
   - thisValue 为传递给函数的值一般用 "this" 值。
 - 返回符合条件的所有元素，如果都不符合，则返回空数组。
 
-## every
+### every
 
 - 语法：array.every(function(currentValue,index,arr), thisValue)
 - 返回布尔值，如果都符合条件就返回 true,否则返回 false。
 
-## some
+### some
 
 - 语法：array.some(function(currentValue,index,arr),thisValue)
 - 返回布尔值，如果有一个元素符合条件就返回 true,否则返回 false。
 
-## map
+### map
 
 - 语法：array.map(function(currentValue,index,arr), thisValue)
 - 返回一个新数组，新数组中的元素为原始数组元素调用函数处理后的值。
 
-## reduce
+### reduce
 
 - 语法：array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
   - total：必需。初始值, 或者计算结束后的返回值。
@@ -48,12 +50,12 @@ let obj = arr.reduce((groups, cur) => {
 }, {})
 ```
 
-# ES6 以上
+## ES6 以上
 
 - Array 方法：includes、find、findIndex、entries、keys、values
 - String 方法：padStart、padEnd
 
-## includes
+### includes
 
 - 语法：
   - string.includes(searchvalue, start)
@@ -64,22 +66,22 @@ let obj = arr.reduce((groups, cur) => {
     - eg：`[(1, 2, 3)].includes(5)`
 - 返回布尔值，用于判断字符串或数组中是否包含指定参数
 
-## find
+### find
 
 - 语法：array.find(function(currentValue, index, arr),thisValue)
 - 返回第一个符合条件的数组成员,如果都不符合条件，则返回 undefined。
 
-## findIndex
+### findIndex
 
 - 语法：array.findIndex(function(currentValue, index, arr), thisValue)
 - 返回第一个符合条件的数组成员的位置，如果都不符合条件，则返回-1。
 
-## Array.of
+### Array.of
 
 - 方法用于将一组值，转换为数组。
 - eg:Array.of(3) // [3]
 
-# 注意点：数组的空位
+## 注意点：数组的空位
 
 - ES5 对空位的处理，已经很不一致了，大多数情况下会忽略空位。
   - forEach(), filter(), reduce(), every() 和 some()都会跳过空位。
