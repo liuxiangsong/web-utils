@@ -15,45 +15,45 @@ const dynamicRoutes = [
         ],
     },
     {
-        path: '/directivesDemo',
+        path: '/directives-demo',
         component: Layout,
-        redirect: '/directivesDemo/index',
+        redirect: '/directives-demo/index',
         children: [
             {
                 path: 'index',
-                name: 'directivesDemo',
+                name: 'directives-demo',
                 meta: { title: '指令(directive)demo', icon: 'el-icon-s-tools' },
-                component: () => import('@/views/directivesDemo'),
+                component: () => import('@/views/directives-demo'),
             },
         ],
     },
     {
-        path: '/filtersDemo',
+        path: '/filters-demo',
         component: Layout,
-        redirect: '/filtersDemo/index',
+        redirect: '/filters-demo/index',
         children: [
             {
                 path: 'index',
-                name: 'filtersDemo',
+                name: 'filters-demo',
                 meta: {
                     title: '过滤器(filter)demo',
                 },
-                component: (resolve) => require(['@/views/filtersDemo'], resolve),
+                component: (resolve) => require(['@/views/filters-demo'], resolve),
             },
         ],
     },
     {
-        path: '/mixinsDemo',
+        path: '/mixins-demo',
         component: Layout,
-        redirect: '/mixinsDemo/index',
+        redirect: '/mixins-demo/index',
         children: [
             {
                 path: 'index',
-                name: 'mixinsDemo',
+                name: 'mixins-demo',
                 meta: {
                     title: '混入(mixinsDemo)demo',
                 },
-                component: (resolve) => require(['@/views/mixinsDemo'], resolve),
+                component: (resolve) => require(['@/views/mixins-demo'], resolve),
             },
         ],
     },
@@ -70,27 +70,27 @@ const dynamicRoutes = [
     //     ],
     // },
     {
-        path: '/stateManagingDemo',
+        path: '/state-managing-demos',
         meta: { title: '状态管理demo' },
         component: Layout,
         children: [
             {
-                path: 'eventBus',
-                name: 'eventBus',
+                path: 'event-bus',
+                name: 'event-bus',
                 meta: { title: 'eventbus demo', icon: 'el-icon-set-up' },
-                component: () => import('@/views/stateManagingDemo/eventBus'),
+                component: () => import('@/views/state-managing-demos/event-bus'),
             },
             {
-                path: 'simpleGlobalStore',
-                name: 'simpleGlobalStore',
-                meta: { title: 'simpleGlobalStore demo' },
-                component: () => import('@/views/stateManagingDemo/simpleGlobalStore'),
+                path: 'simple-global-store',
+                name: 'simple-global-store',
+                meta: { title: 'SimpleGlobalStore demo' },
+                component: () => import('@/views/state-managing-demos/simple-global-store'),
             },
             {
-                path: 'vuexStore',
-                name: 'vuexStore',
-                meta: { title: 'vuexStore demo' },
-                component: () => import('@/views/stateManagingDemo/vuexStore'),
+                path: 'vuex-store',
+                name: 'vuex-store',
+                meta: { title: 'VuexStore demo' },
+                component: () => import('@/views/state-managing-demos/vuex-store'),
             },
         ],
     },
@@ -108,26 +108,26 @@ const dynamicRoutes = [
         ],
     },
     {
-        path: '/splitPanel',
+        path: '/split-panel',
         component: Layout,
         children: [
             {
                 path: 'index',
-                name: 'splitPanel',
+                name: 'split-panel',
                 meta: { title: '分割面板' },
-                component: () => import('@/views/splitPanel'),
+                component: () => import('@/views/split-panel'),
             },
         ],
     },
     {
-        path: '/componentDemos',
+        path: '/component-demos',
         component: Layout,
         children: [
             {
-                path: '/componentDemos',
-                name: 'componentDemos',
+                path: '/component-demos',
+                name: 'component-demos',
                 meta: { title: '组件示例' },
-                component: () => import('@/views/componentDemos'),
+                component: () => import('@/views/component-demos'),
             },
         ],
     },
@@ -137,16 +137,16 @@ const dynamicRoutes = [
         component: Layout,
         children: [
             {
-                path: 'tableCloumnManager',
-                name: 'tableCloumnManager',
+                path: 'table-column-manager',
+                name: 'table-column-manager',
                 meta: { title: '表格列管理' },
-                component: () => import('@/views/table/tableCloumnManager'),
+                component: () => import('@/views/table/table-column-manager'),
             },
             {
-                path: 'editableTable',
-                name: 'editableTable',
+                path: 'editable-table',
+                name: 'editable-table',
                 meta: { title: '可编辑表格' },
-                component: () => import('@/views/table/editableTable'),
+                component: () => import('@/views/table/editable-table'),
             },
         ],
     },
@@ -156,16 +156,16 @@ const dynamicRoutes = [
         component: Layout,
         children: [
             {
-                path: 'exportExcel',
-                name: 'exportExcel',
+                path: 'export-excel',
+                name: 'export-excel',
                 meta: { title: '导出Excel' },
-                component: (resolve) => require(['@/views/excel/exportExcel'], resolve),
+                component: (resolve) => require(['@/views/excel/export-excel'], resolve),
             },
             {
-                path: 'importExcel',
-                name: 'importExcel',
+                path: 'import-excel',
+                name: 'import-excel',
                 meta: { title: '导入Excel' },
-                component: (resolve) => require(['@/views/excel/importExcel'], resolve),
+                component: (resolve) => require(['@/views/excel/import-excel'], resolve),
             },
         ],
     },
@@ -180,15 +180,15 @@ const dynamicRoutes = [
         ],
     },
     {
-        path: '/externalPage',
+        path: '/external-page',
         component: Layout,
         children: [
             {
                 path: 'index',
-                name: 'externalPage',
+                name: 'external-page',
                 meta: { title: '外部页面' },
                 component: () =>
-          import(/* webpackChunkName: 'TestPage' */ '@/views/externalPage'),
+          import(/* webpackChunkName: 'TestPage' */ '@/views/external-page'),
             },
         ],
     },
@@ -199,7 +199,7 @@ const dynamicRoutes = [
         children: [
             {
                 path: '*',
-                component: () => import('@/views/errorPages/404'),
+                component: () => import('@/views/error-pages/404'),
             },
         ],
     },

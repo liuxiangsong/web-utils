@@ -1,4 +1,4 @@
-# dayjs
+# [dayjs](https://day.js.org/docs/en/installation/installation)
 
 - 格式化
 
@@ -41,7 +41,3 @@
 
   console.log(dayjs('2010-10-20').isSameOrAfter('2010-10-21'))
   ```
-
-```
-
-```

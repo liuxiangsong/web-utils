@@ -11,4 +11,14 @@ export function trim(text,char){
     return  text.replace(exp,'')
 }
 
-
+/**
+ * 将对象中字段为空的值格式化空字符串
+ * @param {Object} obj
+ */
+export function formatEmptyOfObject(obj){
+    Object.keys(obj).forEach(k=>{
+        if(!obj[k]){
+            obj[k]=''
+        }
+    })
+}

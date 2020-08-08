@@ -10,12 +10,6 @@
   align-items: center;
 }
 
-@mixin flex-align($x_align: center, $y_align: center) {
-  display: flex;
-  justify-content: $x_align;
-  align-items: $y_align;
-}
-
 .transform-center {
   position: relative;
   & > :first-child {
@@ -23,45 +17,6 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-  }
-}
-
-@mixin scrollBar {
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #dedce3;
-    border-radius: 20px;
-  }
-}
-// 实心三角形  eg: div{@include triangle(20px,20px,red,left);}
-@mixin triangle($width, $height, $color, $direction) {
-  $width: $width/2;
-  $color-border-style: $height solid $color;
-  $transparent-border-style: $width solid transparent;
-  height: 0;
-  width: 0;
-
-  @if $direction==up {
-    border-bottom: $color-border-style;
-    border-left: $transparent-border-style;
-    border-right: $transparent-border-style;
-  } @else if $direction==right {
-    border-left: $color-border-style;
-    border-top: $transparent-border-style;
-    border-bottom: $transparent-border-style;
-  } @else if $direction==down {
-    border-top: $color-border-style;
-    border-left: $transparent-border-style;
-    border-right: $transparent-border-style;
-  } @else if $direction==left {
-    border-right: $color-border-style;
-    border-top: $transparent-border-style;
-    border-bottom: $transparent-border-style;
   }
 }
 
@@ -76,16 +31,7 @@
   white-space: pre-wrap;
 }
 
-//超出指定行后，显示省略号
-@mixin overflow-ellipsis($lines: 2) {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: $lines;
-  overflow: hidden;
-}
-
 //重置样式
-
 ul {
   list-style: none;
   margin: 0;
