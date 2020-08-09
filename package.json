@@ -24,7 +24,7 @@
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "screenfull": "^5.0.2",
-    "split.js": "^1.6.1",
+    "split.js": "^1.6.2",
     "vue": "^2.6.10",
     "vue-contextmenujs": "^1.3.9",
     "vuedraggable": "^2.23.2",
