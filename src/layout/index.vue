@@ -53,18 +53,7 @@ export default {
         overflow: auto;
         height: calc(100% - 85px);
       }
-      .scrollBar {
-        &::-webkit-scrollbar {
-          width: 8px;
-          height: 10px;
-          background: transparent;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: #dedce3;
-          border-radius: 20px;
-        }
-      }
+    @include scrollBar
     }
   }
 </style>

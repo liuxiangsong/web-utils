@@ -6,7 +6,7 @@ import XLSX from 'xlsx'
 /**
  * 导出excel
  * @param {Object} options
- * @param {Array} options.theadColumns 表头列数组 eg:[{prop:'id',text:'序号'}]
+ * @param {Array} options.theadColumns 表头列数组 eg:[{prop:'id',text:'序号'}],如果不传则取jsonData第一行的键为列名
  * @param {Array} options.jsonData 导出的json数据 eg:[{prop:1}]
  * @param {string} options.filename [excel] 导出文件名
  * @param {string} options.excelType [xlsx] excel文件类型
@@ -20,8 +20,13 @@ export  function exportExcel({
     theadColumns,jsonData,filename='excel',excelType='xlsx',sheetName='sheet1',
     customizeThead=[],cellMerges=[],autoWidth=true, styleFun = () => {}
 }){ 
-    if(!theadColumns||!theadColumns){
-        throw new Error('theadColumns 和 jsonData 不能为空')
+    if(!jsonData||jsonData.length<1){
+        throw new Error('jsonData 不能为空')
+    }
+    if(!theadColumns){
+        theadColumns=Object.keys(jsonData[0]).reduce((cols,cur)=>{
+            cols.push({prop:cur,text:cur})
+            return cols},[])
     }
     let aoa=formatJsonDataToArray(theadColumns,jsonData,customizeThead,cellMerges)
     let sheet=XLSX.utils.aoa_to_sheet(aoa)
@@ -55,7 +60,7 @@ export  function exportExcel({
     saveAs(blob,`${filename}.${excelType}`)
 }
 
-//// 设置宽度
+// 设置宽度
 function setColumnWidth(worksheet,data){      
     /*设置worksheet每列的最大宽度*/
     const colWidth = data.map(row => row.map(val => {

@@ -14,10 +14,11 @@ for (let i = 0; i < count; i++) {
         senderAddress: '@county(true)',
         sender: '@cname',
         senderPhone:'1'+'@pick([3,4,5,7,8,9])'+Mock.mock(/\d{8}/), 
-        'serviceMode|1': ['寄付', '到付','第三方付'],
+        'paymentMode|1': ['寄付', '到付','第三方付'],
         goods:'@cword(3, 5)', 
         count: '@integer(1, 100)', 
         weight: '@float(1, 500, 2,2)',
+        signBySelf:'@boolean',
         createTime:'@datetime',
     }))
 }

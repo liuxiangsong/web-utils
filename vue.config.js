@@ -25,6 +25,13 @@ module.exports = {
         before: require('./mock/mock-server.js')
     },
     pages:pagesConfig,
+    css:{
+        loaderOptions: {
+            sass: {
+                prependData: '@import "@assets/style/mixin.scss";'
+            }
+        }
+    },
     chainWebpack(config) { 
         config.resolve.alias.merge(alias)
         //set svg-sprite-loader
