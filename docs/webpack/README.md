@@ -202,8 +202,8 @@ optimization: {
 
       1. 新建并配置 webpack.dll.config.js 文件。
       2. 运行'webpack --config webpack.dll.config.js'打包指令，将配置里的三方库打包输出，并生成 manifest.json 文件。
-      3. 安装 add-asset-html-webpack-plugin。
-      4. 在 plugins 中添加下面代码
+      3. 安装包：'cnpm i -D add-asset-html-webpack-plugin'。
+      4. 在webpack.config.js中的 plugins 中添加下面代码：
 
       ```js
         //告诉webpack哪些库不参与打包

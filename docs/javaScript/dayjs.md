@@ -1,4 +1,6 @@
-# [dayjs](https://day.js.org/docs/en/installation/installation)
+# dayjs
+
+[dayjs](https://day.js.org/docs/en/installation/installation)
 
 - 格式化
 

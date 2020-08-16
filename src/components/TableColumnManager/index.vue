@@ -87,7 +87,7 @@ export default {
         },
         saveData() { 
             if(this.columns.every(c=>!c.visible)){
-                this.$message('表格列不能全部隐藏')
+                this.$message.warning('表格列不能全部隐藏')
                 return
             }
             this.$emit('update:tableColumns',this.columns.map(c=>Object.assign({},c)))

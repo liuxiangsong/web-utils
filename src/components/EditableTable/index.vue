@@ -134,7 +134,7 @@ export default {
             } 
             this.setErrorCount()
         },
-        cellClick(row, column, cell, event) {
+        cellClick(row, column, cell) {
             let cellValue = row[column.property]
             if (cellValue) {
                 cellValue.edit = true
