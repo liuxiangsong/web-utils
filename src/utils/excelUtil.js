@@ -157,7 +157,7 @@ export function exportTableToExcel ({id, filename = '空', bookType = 'xlsx', st
  * @return {Promise} Promise 参数为：header：表头列，jsonData：表格数据
  */
 export  function readExcel(file,headerIndex=0){
-    if(!/\.(xlsx|xls|csv)$/.test(file.name)){
+    if(!/\.(xlsx|xls|csv)$/.test(file.name.toLocaleLowerCase())){
         throw new Error('只支持读取.xlsx, .xls, .csv文件')  
     } 
     return new Promise(resolve => {
