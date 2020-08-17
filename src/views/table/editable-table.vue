@@ -20,7 +20,7 @@ export default {
                 }, 100)
             })
             let res=  await func()
-            console.log('res :>> ', res)
+            console.log('res :>> ',res, row,valObject,fieldName,isInit)
         }
         const checkNumber=(row,valObject)=>{
             const value=valObject.value
