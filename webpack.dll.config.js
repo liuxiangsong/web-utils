@@ -9,18 +9,20 @@ const { resolve } = require('path')
 module.exports = {
     entry: {
     // 键：最终打包生成的[name],此列中即vendors
-    // 值：要打包的库，数组类型，表示可以将多个三方库打包在一起输出，此列中仅juqery
-        vendors: ['vue',  'vuex', 'axios', 'vue-router', 'element-ui'],
+    // 值：要打包的库，数组类型，表示可以将多个三方库打包在一起输出 
+        vendors0: ['vue',  'vuex', 'axios', 'vue-router'],
+        vendors1: ['element-ui']
+
     },
     output: { 
-        filename: '[name].js',  // [name]对应入口中的名称，此列中为vendors
+        filename: '[name]@[hash].js',  // [name]对应入口中的名称，此列中为vendors
         path: resolve(__dirname, 'dll'), 
-        //vendors.dll.js中暴露出的全局变量名,给DllPlugin中的name使用，
+        //vendors.js中暴露出的全局变量名,给DllPlugin中的name使用，
         //所以要和webpack.DllPlugin中的`name: '[name]_[hash]',`保持一致
         library: '[name]_[hash]', 
     },
     plugins: [
-    // 打包生成一个manifest.json文件，此列中提供和jquery的映射
+    // 打包生成一个manifest.json文件
         new webpack.DllPlugin({ 
             name: '[name]_[hash]',// 映射库暴露的内容名称，对应output中library的名称 
             path: resolve(__dirname, 'dll/manifest.json'),// 输出文件路径

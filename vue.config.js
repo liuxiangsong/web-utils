@@ -46,7 +46,10 @@ module.exports = {
             }),
             // 将filepath中指定的文件复制到webpack输出根目录，并在html中添加对该文件的引用
             new AddAssetHtmlWebpackPlugin({
-                filepath: resolve( 'dll/vendors.js'),
+                filepath: resolve( 'dll/vendors0.js'),
+            }),
+            new AddAssetHtmlWebpackPlugin({
+                filepath: resolve( 'dll/vendors1.js'),
             }),
             new ProgressBarPlugin({   //显示构建进度及耗时
                 format:' build [:bar]' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
