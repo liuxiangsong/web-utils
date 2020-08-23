@@ -22,3 +22,11 @@ export function formatEmptyOfObject(obj){
         }
     })
 }
+/**
+ * 将相同属性名的值赋值给另一个对象
+ * @param {Object} targetObject  目标对象，被赋值的对象
+ * @param {Object} originObject  源对象
+ */
+export function copyTheSameProperty(targetObject,originObject){
+    Object.keys(targetObject).forEach(key=>{targetObject[key]=originObject[key]})
+}
