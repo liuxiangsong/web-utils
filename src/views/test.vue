@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" >
-  @import '../assets/style/common';
+  @import '@styles/common';
 .triangle{
   width: 200px;
   height: 35px;

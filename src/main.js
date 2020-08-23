@@ -6,14 +6,15 @@ import store from '@/store'
 import './permission'
 // import myPlugin from './plugins/myPlugin'
 import directives from './directives'
-import * as filters from './filters'
-import ElementUI from 'element-ui'
+import * as filters from './filters' 
 import Contextmenu from 'vue-contextmenujs'
 
-import 'element-ui/lib/theme-chalk/index.css'
-// import '@/assets/scss/reset.scss'
+import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+import '@styles/element-variables.scss'
+
 import 'normalize.css/normalize.css'
-import '@/assets/style/index.scss'
+import '@styles/index.scss'
 
 import './icons'
 
