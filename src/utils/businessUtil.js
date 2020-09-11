@@ -1,3 +1,29 @@
+/*! *****************************************************************************
+与业务相关方法：提取手机号、姓名等方法
+***************************************************************************** */
+
+import REGULAR_EXP from './regularExp'
+/** 取得字符串中格式正确的手机号和座机号
+ * @method getContactNumbers
+ * @param {string} contactNumber 
+ */
+export function getContactNumbers(contactNumber) {
+    if (!contactNumber) {
+        return {phones: [],  telephones: [] }
+    }
+    let phones=[]
+    let telephones=[]
+    var numbers=contactNumber.split(/[,，/]/).filter(n=>n)
+    numbers.forEach(num => {
+        if(REGULAR_EXP.mobilePhone.test(num)){
+            phones.push(num)
+        }else if(REGULAR_EXP.landlinePhone.test(num)){
+            telephones.push(num)
+        }
+    }) 
+    return { phones, telephones }
+}
+
 /**
  * 获取文本的手机号、座机号、姓名、地址、公司名
  * @param {String} inputText 输入文本

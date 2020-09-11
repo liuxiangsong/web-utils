@@ -28,3 +28,7 @@
         },
     4. 加载数据后调用setTableHeight()
     5. 如果有右侧固定列时，el-table-column 须设置min-width，不然右侧固定列位置可能会有错位的问题。
+
+## el-popover
+
+- 设置弹窗不随窗体滚动重新计算其定位：:popper-options="{boundariesElement:'body'}"

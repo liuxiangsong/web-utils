@@ -120,14 +120,21 @@ const dynamicRoutes = [
         ],
     },
     {
-        path: '/component-demos',
+        path: '/demos',
+        meta: { title: '示例' },
         component: Layout,
         children: [
             {
-                path: '/component-demos',
+                path: 'component-demos',
                 name: 'component-demos',
                 meta: { title: '组件示例' },
-                component: () => import('@/views/component-demos'),
+                component: () => import('@/views/demos/component-demos'),
+            },
+            {
+                path: 'common-function-demos',
+                name: 'common-function-demos',
+                meta: { title: '常用功能示例' },
+                component: () => import('@/views/demos/common-function-demos'),
             },
         ],
     },
