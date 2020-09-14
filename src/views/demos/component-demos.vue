@@ -1,9 +1,15 @@
 <template>
   <div>
     <h1>1、MarqueeBar</h1>
-    <marquee-bar :items="marqueeBar.items"/>
+    <marquee-bar :items="marqueeBar.items" />
     <h1>2、TabsCascader</h1>
-    <tabs-cascader :options="tabsCascader.options" :value="tabsCascader.value"/>
+    <tabs-cascader :options="tabsCascader.options" :value="tabsCascader.value" />
+    <h1>3、el-scrollbar</h1>
+    <div class="el-scrollbar-demo">
+      <el-scrollbar wrap-class="wrap-container">
+        <div class="line" v-for="num in 10" :key="num">{{num}}</div>
+      </el-scrollbar>
+    </div>
   </div>
 </template>
 
@@ -280,24 +286,34 @@ const options = [
     },
 ]
 export default {
-    components:{
+    components: {
         MarqueeBar,
         TabsCascader
     },
-    data(){
-        return{
-            marqueeBar:{
-                items:['技术是开发它的人的共同灵魂。']
+    data () {
+        return {
+            marqueeBar: {
+                items: ['技术是开发它的人的共同灵魂。']
             },
-            tabsCascader:{
+            tabsCascader: {
                 options,
-                value:[],//'zhinan','shejiyuanze','yizhi'
+                value: [],//'zhinan','shejiyuanze','yizhi'
             }
         }
     }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped >
+  .el-scrollbar-demo {
+    width: 300px;
+     /deep/.wrap-container {
+      height: 100px;
+      border: 1px solid rgb(241, 241, 241);
+      .line {
+        height: 30px;
+        width: 500px;
+      }
+    }
+  }
 </style>

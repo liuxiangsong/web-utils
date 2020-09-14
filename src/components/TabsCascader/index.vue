@@ -1,5 +1,5 @@
 <template>
-  <el-popover placement="bottom" :width="width" trigger="manual" v-model="visible" popper-class="popover-tabs-cascader" @hide="popoverVisible=false" @show="popoverVisible=true">
+  <el-popover placement="bottom" :width="width" :popper-options="{boundariesElement:'body'}" trigger="manual" v-model="visible" popper-class="popover-tabs-cascader" @hide="popoverVisible=false" @show="popoverVisible=true">
     <div class="content" v-loading="loading"  @mouseenter="cursorHoverPopover=true" @mouseleave="cursorHoverPopover=false" @click="clickPopover">
       <el-tabs v-show="!showSuggestionResult" v-model="currentTabIndex" @tab-click="clickTab" >
         <el-tab-pane v-for="(tab,index) in tabs" :key="index" :label="tab.selectedOption&&tab.selectedOption.label ||'请选择' " :name="index+''">
@@ -135,7 +135,11 @@ export default {
             this.currentTabIndex = this.tabs.length - 1 + ''
         },
         async lazyLoadDataByList(list, byOptionValue = true) {
-            list = list || [null]
+            if(!list||list.length<1){
+                this.selectedOptions=[]
+                return
+            }
+            // list = list || [null]
             if (!this.props.lazy) {
                 return
             } 
@@ -227,6 +231,7 @@ export default {
             }
         },
         clearInput() {
+            this.$refs.input.focus()
             this.selectedOptions = []
             this.$emit('change', this.selectedOptions)
         },
@@ -242,6 +247,7 @@ export default {
         },
         clickInputContainer(){
             this.visible=true
+            this.$refs.input.focus()
             if(!this.displayText){
                 this.showSuggestionResult=false
             }
@@ -292,10 +298,7 @@ export default {
             this.displayText = this.selectedOptions
                 .map((o) => o.label)
                 .join(this.separator)
-        },
-        // valueList(val) {
-        //     this.init(val)
-        // },
+        }, 
         labelList: {
             deep: true,
             handler: function (val) {

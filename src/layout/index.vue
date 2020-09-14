@@ -7,7 +7,7 @@
         <nav-breadcrumb />
         <tag-view />
       </el-header>
-      <el-main class="scrollBar">
+      <el-main>
         <container-main />
       </el-main>
     </div>
@@ -49,11 +49,12 @@ export default {
         overflow: hidden;
       }
       .el-main {
+        @include scrollBar;
         background: white;
         overflow: auto;
         height: calc(100% - 85px);
       }
-    @include scrollBar
+  
     }
   }
 </style>

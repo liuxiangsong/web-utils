@@ -1,5 +1,5 @@
 <template>
-  <section style="height:100%">
+  <section>
     <keep-alive :include="cachedViews">
       <router-view :key="key"/>
     </keep-alive>

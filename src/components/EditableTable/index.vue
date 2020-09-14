@@ -1,11 +1,8 @@
 <template>
   <div>
-    <el-table v-loading="isLoading" class="clinet-common-table" :row-class-name="tableRowClassName" max-height="470" :data="editableTableData" @cell-click="cellClick" border stripe style="width: 100%">
+    <el-table v-loading.fullscreen.lock="isLoading" class="clinet-common-table" :row-class-name="tableRowClassName" :max-height="maxHeight" :data="editableTableData" @cell-click="cellClick" border stripe style="width: 100%">
       <el-table-column label="" width="50" fixed="left">
         <template slot-scope="{row}" v-if="row.errors&&row.errors.length>0">
-            <!-- <el-tooltip class="item" effect="dark" :content="row.errors.join(',')" placement="top">
-        <i  style="color:red;" class="el-icon-warning"></i>  
-          </el-tooltip> -->
            <el-popover trigger="hover" placement="top" popper-class="popover-errors-summary">
                 <p v-for="(item,index) in row.errors" :key="index">{{item}}</p>
           <div slot="reference" >   <svg-icon icon-class="icon-warning"  />  
@@ -14,7 +11,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column v-for="(col,index) in tableColumns.filter(c=>!c.hide || !c.text)" :key="index" :prop="col.prop" :label="col.text" :width="col.width">
+      <el-table-column v-for="(col,index) in tableColumns.filter(c=>!c.hide && c.text)" :key="index" :prop="col.prop" :label="col.text" :width="col.width" :show-overflow-tooltip="true" >
         <template slot-scope="{row}">
           <el-checkbox v-if="col.type==='checkbox'" v-model="row[col.prop].value"></el-checkbox>
           <el-select clearable v-else-if="col.type==='select'|| row[col.prop].options" size="small" v-model="row[col.prop].value" @change="selectChange(col.prop, row[col.prop], row,$event)">
@@ -26,12 +23,12 @@
               <div>{{ item.timelinessExplain }}</div>
             </el-option>
           </el-select>
-          <div v-else>
-            <el-input v-show="isInputVisble(row,col)" size="small" :class="{'input-error': row[col.prop].errorInfo}" :maxlength="col.maxlength||50" v-model="row[col.prop].value" @blur="inputBlur(col.prop, row[col.prop], row)"></el-input>
-            <span v-show="!isInputVisble(row,col)" :style="{color: row[col.prop].errorInfo ? 'red' : 'black'}">
+          <div v-else-if="isInputVisble(row,col)">
+            <el-input   size="small" :class="{'input-error': row[col.prop].errorInfo}" :maxlength="col.maxlength||50" v-model="row[col.prop].value" @blur="inputBlur(col.prop, row[col.prop], row)"></el-input>  
+          </div>
+           <span v-else >
               {{ row[col.prop].value }}
             </span>
-          </div>
           <div class="error-info" v-show="row[col.prop].errorInfo">{{row[col.prop].errorInfo}}</div>
           <div class="warning-info" v-if="!row[col.prop].errorInfo&&row[col.prop].warningInfo">{{row[col.prop].warningInfo}}</div>
         </template>
@@ -54,6 +51,9 @@
 export default {
     name: 'EditableTable',
     props: {
+        maxHeight:{
+            type:[Number,String],
+        },
         //表头列
         tableColumns: {
             required: true,
@@ -85,10 +85,16 @@ export default {
         errorSummary: {
             type: Object,
         },
+        //是否允许清除所有行
+        clearable:{
+            type:Boolean,
+            default:true,
+        }
     },
     data() {
         return {
             isLoading: true,
+            columnsOptions:{}, //所有列的下拉选项
             editableTableData: [],
         }
     },
@@ -99,31 +105,39 @@ export default {
         isInputVisble(row, column) {
             return !column.readOnly&&(row[column.prop].edit || row[column.prop].errorInfo)
         },
-        initTableData(tableData) {
+        async initTableData(tableData) {
             this.isLoading = true
             //获取表格所有列的下拉选项
-            const options = this.tableColumns.reduce((obj, cur) => {
+            this.columnsOptions = this.tableColumns.reduce((obj, cur) => {
                 if (cur.options) {
                     obj[cur.prop] = cur.options
                 }
                 return obj
-            }, {})
+            }, {}) 
+            if(tableData&&tableData.length>0){
+                await  this.addTableRows(tableData)
+            } 
+            this.isLoading = false
+        },
+        async addTableRows(originTableRows){
+            this.isLoading = true
             //将表格原始数据转化为相应的数据结构
-            this.editableTableData = tableData.map((item, rowIndex) => {
+            const rows = originTableRows.map((item, rowIndex) => {
                 let row = {}
-                row.__rowIndex = rowIndex
+                row.__rowIndex =item.no|| rowIndex
                 for (let key in item) {
                     row[key] = {
                         value: item[key],
                         edit: false, //编辑状态
                         errorInfo: '', //错误信息
                         warningInfo:'',//警示信息
-                        options:options[key], //下拉选项
+                        options:this.columnsOptions[key], //下拉选项
                     }
                 }
                 return row
             }) 
-            this.initVerifyTableData(this.editableTableData)
+            await this.initVerifyTableData(rows)
+            this.editableTableData.push(...rows)
             this.isLoading = false
         },
         async initVerifyTableData(editableTableData) { 
@@ -134,7 +148,7 @@ export default {
             } 
             this.setErrorCount()
         },
-        cellClick(row, column, cell) {
+        cellClick(row, column, cell, event) {
             let cellValue = row[column.property]
             if (cellValue) {
                 cellValue.edit = true
@@ -144,7 +158,7 @@ export default {
             }
         },
         removeRow(index, rows) {
-            if(rows.length===1){
+            if(!this.clearable&&rows.length===1){
                 this.$message.warning('表格只剩一行数据，不允许删除')
                 return
             }
@@ -175,8 +189,11 @@ export default {
             if (fieldRuleArray && fieldRuleArray.length > 0) {
                 for (let i = 0; i < fieldRuleArray.length; i++) {
                     const rule = fieldRuleArray[i]
-                    let fieldText = this.tableColumns.find((f) => f.prop == fieldName)
-                        .text
+                    const col= this.tableColumns.find((f) => f.prop == fieldName)
+                    if(col.hide){
+                        continue
+                    }
+                    const fieldText = col.text
                     if (!val.value) {
                         if (rule.required) {
                             errorInfo = fieldText + '不能为空'
@@ -200,6 +217,7 @@ export default {
         setErrorCount() {
             let errorCount = 0
             let errorRowCount = 0
+            const totalRowCount= this.editableTableData.length
             this.editableTableData.forEach((item) => {
                 let errorItems = Object.keys(item)
                     .filter((key) => item[key].errorInfo)
@@ -210,7 +228,7 @@ export default {
                     errorCount += errorItems.length
                 }
             })
-            this.$emit('update:errorSummary', { errorRowCount, errorCount })
+            this.$emit('update:errorSummary', { errorRowCount, errorCount,totalRowCount })
         },
         tableRowClassName({ row }) {
             if (row.errors && row.errors.length > 0) {
@@ -218,17 +236,6 @@ export default {
             }
             return ''
         },
-        //取得表格数据
-        getTableData(){
-            let tableData =this.editableTableData.map(row => {
-                let item = {}
-                for (var key in row) {
-                    item[key] = row[key].value
-                }  
-                return item
-            })  
-            return tableData
-        }
     },
     watch: {
         tableData(data) {
