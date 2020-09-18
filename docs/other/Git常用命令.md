@@ -14,6 +14,7 @@
 - `git restore .`
 - `git reset --soft HEAD~`
 - `git commit --amend` //修改最近一次 commit 注释
+- `git rm -r --cached [文件(夹)名称]` //git 忽略已提交的文件夹,-r 为递归删除，移除文件时，不需加该参数
 
 ## 操作分支相关命令
 
