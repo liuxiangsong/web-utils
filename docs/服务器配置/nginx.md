@@ -1,8 +1,9 @@
-# [nginx](http://nginx.org/en/docs/)
+# nginx
 
 ## 安装 nginx
 
-- [参考资料](https://juejin.im/post/6844904134345228301)
+- 普通安装方法：[参考资料](https://juejin.im/post/6844904134345228301)
+- 通过docker安装
 
 ## 常用命令
 
@@ -13,16 +14,79 @@
 
 ## nginx 配置
 
-- vi /etc/nginx/nginx.conf
+> nginx的核心配置文件 /etc/nginx/nginx.conf
+>
+> nginx.conf 主要内容：
+>
+> - 全局块
+> - events块
+> - http块
+>   - server块
+>     - location
+
+### 反向代理
+
+```sh
+server  {
+  listen 80;
+  server_name localhost;
+  location /router/rest {
+    proxy_pass http://127.0.0.1:8000;
+  }
+}
+```
+
+#### location 路径映射
+
+> 优先级：(location = )  >  (location /xxx/yyy/zzz完整路径)  >  (location ^~ 路径)  >  (location ~，~\* )  >  (location /起始路径)  >  (location /)
+>
+> 注：loctaion配置顺序按优先级从高到低摆放
+
+- = 匹配
+
+  ```sh
+  location = / {
+  	# 精确匹配，主机名后面不能带任何的字符串
+  }
+  ```
+
+- 通用匹配
+
+  ```sh
+  location /xxx {
+  	# 匹配所有以/xxx开头的路径
+  }
+  ```
+
+- 正则配置
+
+  ```sh
+  location = ~/xxx {
+  	# 匹配所有以/xxx开头的路径；~ 的正则匹配区分大小写
+  }
+  
+  location = ~*\.(gif|jpg|png)${
+  	# 匹配以gif、jpg、png结尾的路径；~* 的正则匹配不区分大小写
+  }
+  ```
+
+- 匹配开头路径
+
+  ```sh
+  location = ^~/xxx/ {
+  	# 匹配所有以/xxx开头的路径；如果匹配成功，则不再匹配其他 location
+  }
+  ```
+
+- @ 它定义一个命名的 location，在内部定向时使用；例如 error_page, try_files。
 
 ### 负载均衡
 
-- 轮询（默认）
+#### 轮询（默认）
 
 ```sh
-// nginx.conf
 http {
-    upstream backend {
+    upstream 名字 {  # 名字建议不要用_，而用-，以免为nginx的关键字相冲突
         server localhost:8080;
         server localhost:8081;
     }
@@ -30,13 +94,13 @@ http {
     listen 80;
     server_name localhost;
     location / {
-      proxy_pass  http://backend;
+      proxy_pass  http://upstream 的名字;
     }
 }
 }
 ```
 
-- 权重（weight)
+#### 权重（weight)
 
 ```sh
  upstream backend {
@@ -45,9 +109,9 @@ http {
     }
 ```
 
-- ip_hash（根据 ip 来分配）
+#### ip_hash
 
-> ip_hash 机制能够让某一客户机在相当长的一段时间内只访问固定的后端的某台真实的 web 服务器
+> ip_hash 基于发起请求的客户端ip地址不同，它能够让客户机在相当长的一段时间内始终将请求发送到固定的服务器上
 
 ```sh
  upstream backend {
@@ -57,7 +121,7 @@ http {
     }
 ```
 
-- fair（根据响应时间来分配）
+#### fair（根据响应时间来分配）
 
 > 公平竞争，谁响应快，谁处理，不过这种方式需要依赖到第三方插件 nginx-upstream-fair，需要先安装
 
@@ -69,20 +133,575 @@ http {
     }
 ```
 
-### 反向代理
+### 动静分离
+
+> nginx最终的并发能力 = worker_processes * worker_connections / 4|2 (动态资源 / 4，静态资源 / 2)
+
+#### 动态资源代理
 
 ```sh
-// nginx.conf
-server  {
-  listen 80;
-  server_name localhost;
-  location /router/rest {
-    proxy_pass http://127.0.0.1:8000;
-  }
+location / {
+  proxy_pass 路径;
 }
 ```
 
-### gzip 配置
+#### 静态资源代理
+
+```sh
+location / {
+  root  www;    # 静态资源路径;
+  index index.html default.html;  # 默认访问路径下的什么资源
+  autoindex on;  # 以列表的形式展示静态资源的全部内容
+}
+```
+
+
+
+### gzip 配置ur7gyyyigkljhtm;lbcv/nkrmgnv6ggi3.yuvb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+​																							`````````````````						`
 
 ```sh
 server{
@@ -95,20 +714,6 @@ server{
     gzip_vary on;
 }
 ```
-
-## nginx 参数说明
-
-### location
-
-~ 表示执行一个正则匹配，区分大小写;
-~\* 表示执行一个正则匹配，不区分大小写;
-^~ 表示普通字符匹配。使用前缀匹配。如果匹配成功，则不再匹配其他 location;
-= 进行普通字符精确匹配。也就是完全匹配;
-@ 它定义一个命名的 location，使用在内部定向时，例如 error_page, try_files
-
-- 优先级:
-
-> (location =) > (location 完整路径) > (location ^~ 路径) > (location ~,~\* 正则顺序) > (location 部分起始路径)
 
 ## 常见问题
 
@@ -125,3 +730,9 @@ location / {
   try_files $uri $uri/ /index.html; # history模式下,解决页面刷新404问题
 }
 ```
+
+
+
+[nginx官网](http://nginx.org/en/docs/)
+
+[参考资料](https://www.bilibili.com/video/BV1W54y1z7GM)
