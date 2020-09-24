@@ -14,8 +14,6 @@
 
 3. 安装docker
 
-   `yum makecache fast`
-
    `yum -y install docker-ce`
 
 4. 启动、测试
@@ -166,6 +164,15 @@ services:       # 可设置多个服务
 - 开启|关闭|重启 已存在的由docker-compose维护的容器：`docker-compose start|stop|restart`
 - 查看由docker-compose管理的容器：`docker-compose ps`
 - 查看日志：`docker-compose logs -f`
+
+
+
+## lazydocker(可视化管理工作)
+
+> lazydocker是一款针对docker和docker-compose的终端UI管理工具，支持键盘操作和鼠标点击
+
+1. 下载[lazydocker压缩包](https://github.com/jesseduffield/lazydocker/releases)
+2. 解压压缩包后，直接运行`lazydocker`命令即可
 
 
 

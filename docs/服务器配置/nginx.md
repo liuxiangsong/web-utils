@@ -3,7 +3,7 @@
 ## 安装 nginx
 
 - 普通安装方法：[参考资料](https://juejin.im/post/6844904134345228301)
-- 通过docker安装
+- 通过 docker 安装
 
 ## 常用命令
 
@@ -14,14 +14,14 @@
 
 ## nginx 配置
 
-> nginx的核心配置文件 /etc/nginx/nginx.conf
+> nginx 的核心配置文件 /etc/nginx/nginx.conf
 >
 > nginx.conf 主要内容：
 >
 > - 全局块
-> - events块
-> - http块
->   - server块
+> - events 块
+> - http 块
+>   - server 块
 >     - location
 
 ### 反向代理
@@ -38,15 +38,15 @@ server  {
 
 #### location 路径映射
 
-> 优先级：(location = )  >  (location /xxx/yyy/zzz完整路径)  >  (location ^~ 路径)  >  (location ~，~\* )  >  (location /起始路径)  >  (location /)
+> 优先级：(location = ) > (location /xxx/yyy/zzz 完整路径) > (location ^~ 路径) > (location ~，~\* ) > (location /起始路径) > (location /)
 >
-> 注：loctaion配置顺序按优先级从高到低摆放
+> 注：loctaion 配置顺序按优先级从高到低摆放
 
 - = 匹配
 
   ```sh
   location = / {
-  	# 精确匹配，主机名后面不能带任何的字符串
+   # 精确匹配，主机名后面不能带任何的字符串
   }
   ```
 
@@ -54,7 +54,7 @@ server  {
 
   ```sh
   location /xxx {
-  	# 匹配所有以/xxx开头的路径
+   # 匹配所有以/xxx开头的路径
   }
   ```
 
@@ -62,11 +62,11 @@ server  {
 
   ```sh
   location = ~/xxx {
-  	# 匹配所有以/xxx开头的路径；~ 的正则匹配区分大小写
+   # 匹配所有以/xxx开头的路径；~ 的正则匹配区分大小写
   }
-  
+
   location = ~*\.(gif|jpg|png)${
-  	# 匹配以gif、jpg、png结尾的路径；~* 的正则匹配不区分大小写
+   # 匹配以gif、jpg、png结尾的路径；~* 的正则匹配不区分大小写
   }
   ```
 
@@ -74,7 +74,7 @@ server  {
 
   ```sh
   location = ^~/xxx/ {
-  	# 匹配所有以/xxx开头的路径；如果匹配成功，则不再匹配其他 location
+   # 匹配所有以/xxx开头的路径；如果匹配成功，则不再匹配其他 location
   }
   ```
 
@@ -111,7 +111,7 @@ http {
 
 #### ip_hash
 
-> ip_hash 基于发起请求的客户端ip地址不同，它能够让客户机在相当长的一段时间内始终将请求发送到固定的服务器上
+> ip_hash 基于发起请求的客户端 ip 地址不同，它能够让客户机在相当长的一段时间内始终将请求发送到固定的服务器上
 
 ```sh
  upstream backend {
@@ -135,7 +135,7 @@ http {
 
 ### 动静分离
 
-> nginx最终的并发能力 = worker_processes * worker_connections / 4|2 (动态资源 / 4，静态资源 / 2)
+> nginx 最终的并发能力 = worker_processes \* worker_connections / 4|2 (动态资源 / 4，静态资源 / 2)
 
 #### 动态资源代理
 
@@ -155,563 +155,17 @@ location / {
 }
 ```
 
-
-
-### gzip 配置ur7gyyyigkljhtm;lbcv/nkrmgnv6ggi3.yuvb
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-​																							`````````````````						`
+### gzip 配置
 
 ```sh
 server{
-    gzip on; #开启GZip压缩
-    gzip_buffers 32 4K;
-    gzip_comp_level 6;  #压缩级别：1-10，数字越大压缩的越好
-    gzip_min_length 100; #不压缩临界值，大于100的才压缩，一般不用改
-    gzip_types application/javascript text/css text/xml; #对哪些类型进行压缩
-    gzip_disable "MSIE [1-6]\.";  #IE6对GZip不友好，IE6及以下的浏览器不进行压缩
-    gzip_vary on;
+  gzip on; #开启GZip压缩
+  gzip_buffers 32 4K;
+  gzip_comp_level 6; #压缩级别：1-10，数字越大压缩的越好
+  gzip_min_length 100; #不压缩临界值，大于100的才压缩，一般不用改
+  gzip_types application/javascript text/css text/xml; #对哪些类型进行压缩
+  gzip_disable "MSIE [1-6]\."; #IE6对GZip不友好，IE6及以下的浏览器不进行压缩
+  gzip_vary on;
 }
 ```
 
@@ -731,8 +185,6 @@ location / {
 }
 ```
 
-
-
-[nginx官网](http://nginx.org/en/docs/)
+[nginx 官网](http://nginx.org/en/docs/)
 
 [参考资料](https://www.bilibili.com/video/BV1W54y1z7GM)
