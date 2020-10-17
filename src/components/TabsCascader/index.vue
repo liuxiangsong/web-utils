@@ -22,7 +22,7 @@
       </div>
     </div>
     <div slot="reference" class="input-container" @mouseenter="cursorHoverInput=true" @mouseleave="cursorHoverInput=false" @click="clickInputContainer">
-      <el-input v-model="displayText" ref="input" clearable :placeholder="placeholder" :readonly="readonly" @clear="clearInput" @focus="focusInInput=true" @blur="lostFocus" @input="handleInput" size="medium"></el-input>
+      <el-input v-model="displayText" ref="input" clearable :placeholder="placeholder" :readonly="readonly" @clear="clearInput" @focus="focusInInput=true" @blur="lostFocus" @input="debounceHandleInput" size="medium"></el-input>
       <i slot="suffix" v-show="readonly&&cursorHoverInput&&displayText" class="el-select__caret el-input__icon el-icon-circle-close" @click.stop="clearInput"></i>
       <i slot="suffix" v-show="(!cursorHoverInput&&!focusInInput) || !displayText" class="el-select__caret el-input__icon el-icon-arrow-up" :class="{ 'is-reverse': popoverVisible }"></i>
     </div>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce'
 export default {
     name: 'TabsCascader',
     props: {
@@ -73,7 +74,7 @@ export default {
         this.initByList(list,byOptionValue)
     },
     methods: {
-        async initByList(list, byOptionValue = true) {
+        async initByList(list, byOptionValue = true,isManualClick=false) {
             if (this.tabs.length > 1) {
                 this.clickTab({ index: 0 })
             }
@@ -81,7 +82,7 @@ export default {
                 if(this.tabs.length<1){
                     await this.lazyLoadChildrenOfOption({ value: '', level: 1 })
                 } 
-                this.lazyLoadDataByList(list, byOptionValue)
+                this.lazyLoadDataByList(list, byOptionValue,isManualClick)
             } else {
                 this.loadDataByValueList(list, byOptionValue)
             }
@@ -134,7 +135,7 @@ export default {
             }
             this.currentTabIndex = this.tabs.length - 1 + ''
         },
-        async lazyLoadDataByList(list, byOptionValue = true) {
+        async lazyLoadDataByList(list, byOptionValue = true, isManualClick=false) {
             if(!list||list.length<1){
                 this.selectedOptions=[]
                 return
@@ -154,7 +155,7 @@ export default {
                     )
                     Object.assign(option, tabOption)
                 }
-                await this.lazyLoadChildrenOfOption(option)
+                await this.lazyLoadChildrenOfOption(option,isManualClick)
             }
         },
         lazyLoadChildrenOfOption(option, isManualClick) {
@@ -256,6 +257,9 @@ export default {
         clickPopover(){  
             this.$refs.input.focus()
         },
+        debounceHandleInput:debounce(function(queryString){
+            this.handleInput(queryString)
+        },500),
         handleInput(queryString) {
             if (!this.fetchSuggestions) {
                 return
@@ -272,7 +276,7 @@ export default {
             })
         }, 
         async suggestionItemClick(item) {
-            this.initByList(item.labelList, false) 
+            this.initByList(item.labelList, false,true) 
             this.visible=false 
             setTimeout(() => {
                 this.showSuggestionResult=false
