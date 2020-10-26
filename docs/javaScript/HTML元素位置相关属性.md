@@ -33,7 +33,7 @@
 
 ### 元素可视区client系列
 
-- 元素**可视区**clinet系列属性
+- 元素**可视区**client系列属性
   
 | client系列属性       | 作用                                        |
 | :------------------- | :------------------------------------------ |
@@ -62,6 +62,6 @@
 ### 总结
 
 - offset系列经常用于获取元素位置：**offsetLeft、offsetTop**
-- clinet系列经常用于获取元素大小：**clientWidth、clientHeight**
+- client系列经常用于获取元素大小：**clientWidth、clientHeight**
 - scroll系列经常用于获取滚动距离：**scrollTop、scrollLeft**
 - 注意**页面滚动的距离**是通过window.pageYOffset获取。

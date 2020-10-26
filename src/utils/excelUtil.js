@@ -168,7 +168,9 @@ export  function readExcel(file,headerIndex=0){
             const firstSheetName = workbook.SheetNames[0]
             const worksheet = workbook.Sheets[firstSheetName] 
             let header=getExcelHeader(worksheet,headerIndex)
-            const jsonData = XLSX.utils.sheet_to_json(worksheet,{header})
+            let jsonData = XLSX.utils.sheet_to_json(worksheet,{header})
+            jsonData=JSON.stringify(jsonData).replace(/[\\f\\n\\r\\t\\v]/g,'')
+            jsonData=JSON.parse(jsonData)
             jsonData.splice(0,headerIndex+1)   
             resolve({header,jsonData}) 
         } 
