@@ -32,3 +32,29 @@
 ## el-popover
 
 - 设置弹窗不随窗体滚动重新计算其定位：:popper-options="{boundariesElement:'body'}"
+
+## el-date-picker
+
+- 限制选择范围为最近半年，且只长选择一个月
+
+  ```js
+   pickerOptions: {
+                tempSelectedDate:'',
+                onPick: ({maxDate, minDate}) => {
+                    this.pickerOptions.tempSelectedDate= minDate.getTime()
+                    if (maxDate) {
+                        this.pickerOptions.tempSelectedDate= ''
+                    }
+                },
+                disabledDate: (time) => {
+                    if(time<dayjs().add(-6,'month')){
+                        return true
+                    }
+                    if (this.pickerOptions.tempSelectedDate!== '') {
+                        const minDate=dayjs(this.pickerOptions.tempSelectedDate).add(-1,'month')
+                        const maxDate=dayjs(this.pickerOptions.tempSelectedDate).add(1,'month')
+                        return time.getTime() < minDate || time.getTime() > maxDate
+                    }
+                }
+            },
+  ```

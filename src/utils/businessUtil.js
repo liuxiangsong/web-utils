@@ -38,7 +38,7 @@ export function smartRecognize(inputText){
     if(!inputText){
         return  
     }
-    const wordsList= inputText.match(/[\u4e00-\u9fa5|0-9|a-z|A-Z]{2,}/g)
+    const wordsList= inputText.match(/[\u4e00-\u9fa5|0-9|a-z|A-Z]{2,}/g)||[]
     const noiseItems=['收方','收货','收件','客户','姓名','联系','电话','手机','地址','详细']
     const noiseWords= wordsList.filter(w=>noiseItems.some(n=>w.includes(n)))
     noiseWords.forEach(w=>{
@@ -73,13 +73,15 @@ function recognizeName(wordsList,inputText){
     let nameList=wordsList.filter(w=>w.endsWith('先生') || w.endsWith('小姐') || familyName.includes(w.substr(0,1)))
     if(nameList.length<1){
         const englishNameReg=/[A-Za-z. ]{2,}/g
-        nameList=  inputText.match(englishNameReg)
-        nameList=nameList.filter(n=>n.split(' ').length<2)
+        nameList= inputText.match(englishNameReg)
+        if(nameList&&nameList.length>0){
+            nameList=nameList.filter(n=>n.split(' ').length<2)
+        } 
+    }
+    if(!nameList || nameList.length<1){
+        return 
     }
     nameList.sort((a,b)=>a.length-b.length)
-    if(nameList.length<1){
-        return {}
-    }
     return {name:nameList[0],inputText:inputText.replace(new RegExp(nameList[0],'g'),' ')}
 }
 

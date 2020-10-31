@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table v-loading.fullscreen.lock="isLoading" class="clinet-common-table" :row-class-name="tableRowClassName" :max-height="maxHeight" :data="editableTableData" @cell-click="cellClick" border stripe style="width: 100%">
+    <el-table v-loading.fullscreen.lock="isLoading" class="client-common-table" :row-class-name="tableRowClassName" :max-height="maxHeight" :data="editableTableData" @cell-click="cellClick" border stripe style="width: 100%">
       <el-table-column label="" width="50" fixed="left">
         <template slot-scope="{row}" v-if="row.errors&&row.errors.length>0">
           <el-popover trigger="hover" placement="top" popper-class="popover-errors-summary">
@@ -15,9 +15,9 @@
       <el-table-column v-for="(col,index) in tableColumns.filter(c=>!c.hide && c.text)" :key="index" :prop="col.prop" :label="col.text" :width="col.width" :show-overflow-tooltip="true">
         <template slot-scope="{row}">
           <el-button v-if="col.type==='button'" @click.native.prevent="$emit(col.eventName,row)" type="text" size="small" :style="{color:col.color}">
-            {{row[col.prop].value || '请选择'}}
+            {{row[col.prop].value }}
           </el-button>
-          <el-checkbox v-else-if="col.type==='checkbox'" v-model="row[col.prop].value"></el-checkbox>
+          <el-checkbox v-else-if="col.type==='checkbox'" v-model="row[col.prop].value" @change="selectChange(col.prop, row[col.prop], row,$event)">{{col.label}}</el-checkbox>
           <el-select clearable v-else-if="col.type==='select'|| row[col.prop].options" size="small" v-model="row[col.prop].value" @change="selectChange(col.prop, row[col.prop], row,$event)">
             <template v-if="col.prop!='serviceWay'">
               <el-option v-for="(item, index) in row[col.prop].options" :key="index" :label="item.label||item" :value="item.value||item" />
@@ -147,12 +147,13 @@ export default {
         async initVerifyTableData (editableTableData) {
             for (let row of editableTableData) {
                 for (let col in row) {
-                    await this.verifyField(col, row[col], row, true)
+                    // await this.verifyField(col, row[col], row, true)
+                    this.verifyField(col, row[col], row, true)
                 }
             }
             this.setErrorCount()
         },
-        cellClick (row, column, cell) {
+        cellClick (row, column, cell, event) {
             let cellValue = row[column.property]
             if (cellValue) {
                 cellValue.edit = true
@@ -191,6 +192,7 @@ export default {
             this.isLoading = true
             let errorInfo = ''
             let fieldRuleArray = this.verifyRules[fieldName]
+
             if (fieldRuleArray && fieldRuleArray.length > 0) {
                 for (let i = 0; i < fieldRuleArray.length; i++) {
                     const rule = fieldRuleArray[i]
@@ -199,12 +201,10 @@ export default {
                         continue
                     }
                     const fieldText = col.text
-                    if (!val.value) {
-                        if (rule.required) {
-                            errorInfo = fieldText + '不能为空'
-                            break
-                        }
-                    } else if (rule.reg && !rule.reg.test(val.value)) {
+                    if (rule.required && !val.value) {
+                        errorInfo = fieldText + '不能为空'
+                        break
+                    } else if (val.value && rule.reg && !rule.reg.test(val.value)) {
                         errorInfo = rule.msg || ''
                         break
                     } else if (rule.validator) {
@@ -278,11 +278,19 @@ export default {
     .warning-info {
       color: #ffaa00;
     }
+    // .el-table__body-wrapper{
+    //     max-height: calc(100vh - 472px) !important;
+    // }
   }
 
+  // .popover-errors-summary{
+  //     background:#303133 !important;
+  //     color:#fff;
+  // }
   .el-select-dropdown {
     .serviceWay-option {
       height: unset;
+      min-height: 54px;
       font-size: 12px;
       color: #999999;
       :first-child {
