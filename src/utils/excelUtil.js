@@ -160,19 +160,23 @@ export  function readExcel(file,headerIndex=0){
     if(!/\.(xlsx|xls|csv)$/.test(file.name.toLocaleLowerCase())){
         throw new Error('只支持读取.xlsx, .xls, .csv文件')  
     } 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         const reader = new FileReader()
         reader.onload = e => {
-            const data = e.target.result 
-            const workbook = XLSX.read(data, { type: 'array' })
-            const firstSheetName = workbook.SheetNames[0]
-            const worksheet = workbook.Sheets[firstSheetName] 
-            let header=getExcelHeader(worksheet,headerIndex)
-            let jsonData = XLSX.utils.sheet_to_json(worksheet,{header})
-            jsonData=JSON.stringify(jsonData).replace(/[\\f\\n\\r\\t\\v]/g,'')
-            jsonData=JSON.parse(jsonData)
-            jsonData.splice(0,headerIndex+1)   
-            resolve({header,jsonData}) 
+            try {
+                const data = e.target.result
+                const workbook = XLSX.read(data, { type: 'array' })
+                const firstSheetName = workbook.SheetNames[0]
+                const worksheet = workbook.Sheets[firstSheetName]
+                let header = getExcelHeader(worksheet, headerIndex)
+                let jsonData = XLSX.utils.sheet_to_json(worksheet, { header })
+                jsonData = JSON.stringify(jsonData).replace(/[\\f\\n\\r\\t\\v]/g, '')
+                jsonData = JSON.parse(jsonData)
+                jsonData.splice(0, headerIndex + 1)
+                resolve({ jsonData, header })
+            } catch (ex) {
+                reject(ex)
+            }
         } 
         reader.readAsArrayBuffer(file.raw)
     })  

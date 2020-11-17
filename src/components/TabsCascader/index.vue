@@ -21,10 +21,10 @@
         </el-scrollbar>
       </div>
     </div>
-    <div slot="reference" class="input-container" @mouseenter="cursorHoverInput=true" @mouseleave="cursorHoverInput=false" @click="clickInputContainer">
+    <div slot="reference" class="input-container" @mouseenter="handleMouseEvent(true)" @mouseleave="handleMouseEvent(false)" @click.stop="clickInputContainer">
       <el-input v-model="displayText" ref="input" clearable :placeholder="placeholder" :readonly="readonly" @clear="clearInput" @focus="focusInInput=true" @blur="lostFocus" @input="debounceHandleInput" size="medium"></el-input>
       <i slot="suffix" v-show="readonly&&cursorHoverInput&&displayText" class="el-select__caret el-input__icon el-icon-circle-close" @click.stop="clearInput"></i>
-      <i slot="suffix" v-show="(!cursorHoverInput&&!focusInInput) || !displayText" class="el-select__caret el-input__icon el-icon-arrow-up" :class="{ 'is-reverse': popoverVisible }"></i>
+      <i slot="suffix" v-show="(!cursorHoverInput&&!focusInInput) || !displayText" class="el-select__caret el-input__icon el-icon-arrow-up" :class="{ 'is-reverse': popoverVisible }"  @mouseenter="handleMouseEvent(true)" @mouseleave="handleMouseEvent(false)"  @click.stop="clickInputContainer('icon')"></i>
     </div>
 
   </el-popover>
@@ -74,6 +74,9 @@ export default {
         this.initByList(list,byOptionValue)
     },
     methods: {
+        handleMouseEvent(isEnter){
+            this.cursorHoverInput=isEnter 
+        },
         async initByList(list, byOptionValue = true,isManualClick=false) {
             if (this.tabs.length > 1) {
                 this.clickTab({ index: 0 })
@@ -110,7 +113,7 @@ export default {
             if (isLeafNode || !option.children || option.children.length < 1) {
                 this.selectedOptions = this.tabs.map((t) => t.selectedOption)
                 this.visible = false
-                isManualClick && this.$emit('change', this.selectedOptions)
+                isManualClick && this.$emit('valueChange', this.selectedOptions)
                 return
             }
             this.tabs.push({ options: option.children })
@@ -234,7 +237,10 @@ export default {
         clearInput() {
             this.$refs.input.focus()
             this.selectedOptions = []
-            this.$emit('change', this.selectedOptions)
+            this.$nextTick(()=>{
+                // console.log('this.selectedOptions :>> ', this.selectedOptions)
+                this.$emit('valueChange', this.selectedOptions)
+            })
         },
         lostFocus() {
             if(!this.cursorHoverPopover){
@@ -244,15 +250,20 @@ export default {
                     .map((o) => o.label)
                     .join(this.separator) 
             }
-            this.focusInInput = false
+            this.focusInInput =this.popoverVisible? null :false
         },
-        clickInputContainer(){
-            this.visible=true
-            this.$refs.input.focus()
-            if(!this.displayText){
-                this.showSuggestionResult=false
+        clickInputContainer(target){
+            if(target==='icon'&&this.focusInInput == null){
+                this.focusInInput = false
+                return
             }
-                
+            this.visible=!this.visible
+            if( this.visible){ 
+                this.$refs.input.focus()
+                if(!this.displayText){
+                    this.showSuggestionResult=false
+                }
+            }   
         },
         clickPopover(){  
             this.$refs.input.focus()

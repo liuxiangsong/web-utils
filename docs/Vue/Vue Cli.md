@@ -11,3 +11,7 @@
 
 - npm run build -- --report   生成分析图report.html文件
 - vue ui
+
+## vue.config.js
+
+- externals 中键为package.json中依赖包的名字，值为第三方包注入window中的变量名。

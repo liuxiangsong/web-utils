@@ -1,4 +1,6 @@
-# 导出 excel
+# js导出文件
+
+## 导出 excel
 
 ```js
 export function downloadFile(fileName, base64) {
@@ -31,7 +33,7 @@ function base64ToBlob(code) {
 }
 ```
 
-# 导出 pdf
+## 导出 pdf
 
 ```js
 export function downloadFile (fileName,base64) {//blob就是一中返回的文件,fileName是下载文件名
@@ -53,7 +55,7 @@ function base64toFile (b64Data, filename, contentType) {
     for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
         let slice = byteCharacters.slice(offset, offset + sliceSize)
         let byteNumbers = new Array(slice.length)
-   
+
         for (let i = 0; i < slice.length; i++) {
             byteNumbers[i] = slice.charCodeAt(i)
         }
