@@ -9,6 +9,7 @@
     "build:measure": "set MEASURE=true&&vue-cli-service build",
     "docs": "vuepress dev docs",
     "docs:build": "vuepress build docs",
+    "deploy":"bash ./docs/.vuepress/scripts/deploy.sh",
     "build-dev": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint",
     "dll": "webpack --config ./webpack.dll.config.js"
