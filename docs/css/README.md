@@ -24,7 +24,7 @@
   - 自适应布局（结合 float 实现）
   - 防止字体环绕
   - 清除浮动
-- 参考文章：[CSS 深入理解流体特性和 BFC 特性下多栏自适应布局](https：//www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/)
+- 参考文章：[CSS 深入理解流体特性和 BFC 特性下多栏自适应布局](https://www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/)
 
 ## vertical-align
 

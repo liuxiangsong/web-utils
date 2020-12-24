@@ -21,7 +21,7 @@
 6. 设置终端字体：
 
 - windows terminal中：打开windows terminal，点击设计setting.json在defaults下设置`"fontFace":  "Cascadia Code PL"`保存即可。
-- VSCode中：在设置中搜索`terminal font`，将字体设置为`'Cascadia Code PL'`保存即可
+- VSCode中：在设置中搜索`terminal font`，将字体设置为`monospace,'Cascadia Code PL'`保存即可
 
 参考资料：
 <https://www.jeremyjone.com/671/>
