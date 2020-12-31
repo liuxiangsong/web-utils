@@ -17,6 +17,24 @@ export function trim(text,char){
 }
 
 /**
+ * 将jsonString转化为json对象
+ * @param {*} jsonString 
+ */
+export function convertStringToJson(jsonString) {
+    if (typeof jsonString !== 'string') {
+        return 
+    }
+    try {
+        var obj=JSON.parse(jsonString)
+        if(typeof obj === 'object' && obj ){
+            return obj
+        }
+    } catch(e) { 
+        console.log('e :>> ', e)
+    }
+}
+
+/**
  * 将对象中字段为空的值格式化空字符串
  * @param {Object} obj
  */
