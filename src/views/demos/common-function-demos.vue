@@ -21,7 +21,7 @@ export default {
             console.log('el.target.files[0] :>> ', el.target.files[0])
             let reader = new FileReader()
             reader.readAsDataURL(el.target.files[0])
-            reader.onload = function (e) {
+            reader.onload = function () {
                 console.log('文件 :>> ', this.result)
             }
             el.target.value=''

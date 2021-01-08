@@ -30,6 +30,7 @@ export default {
     mobilePhoneOfStrict:/^(0|86|17951)?(13\d|15\d|17\d|18\d|19\d|14[057]|165|166|168|199|198)\d{8}$/,
     //手机号
     mobilePhone:/^1[3|4|5|6|7|8|9]\d{9}$/,
+    // eslint-disable-next-line no-useless-escape
     base64:/^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*?)\s*$/i,
     url:/^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i,
     //普通字符
