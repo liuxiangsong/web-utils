@@ -18,19 +18,14 @@ import '@styles/index.scss'
 
 import './icons'
 
-const setDirective=(Vue)=>{
-    Object.keys(directives).forEach(v=>Vue.directive(v,directives[v]))
-}
 const setFilter=(Vue)=>{
     Object.keys(filters).forEach(v=>Vue.filter(v,filters[v]))
 }
-setDirective(Vue)
 setFilter(Vue)
- 
+Vue.use(directives)
 Vue.use(ElementUI)
 Vue.use(Contextmenu)
 // Vue.use(myPlugin)
-
 
 Vue.config.productionTip = false
 

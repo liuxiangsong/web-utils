@@ -1,3 +1,6 @@
+import { debounce } from '@utils'
+
+
 /**
  * v-restrict
  * @desc 输入框只允许输入指定字符
@@ -26,7 +29,7 @@ export const myrestrict = {
         }
         const reg = regExpes[Object.keys(binding.modifiers)[0]] 
         const max=parseFloat(el.max)  
-     
+    
         if(vnode.componentInstance&&vnode.componentInstance.clearable){
             vnode.componentInstance.$on('clear',()=>{ el.oldValue='' })
         }
@@ -36,7 +39,8 @@ export const myrestrict = {
                 el.oldSelectionStart=el.oldSelectionEnd=el.oldValue.length
             } 
         })
-        el.addEventListener('input', handleInput(el,vnode,reg,max)) 
+        // 增加防抖 避免重复触发事件导致内存溢出
+        el.addEventListener('input',debounce(handleInput(el,vnode,reg,max),0,true) ) 
     }
 }
  
@@ -59,7 +63,8 @@ function handleInput(el,vnode,reg,max) {
         if (vnode.componentInstance) { 
             vnode.componentInstance.$emit('input', el.value)
         } else {
-            vnode.elm.dispatchEvent(new CustomEvent('input', el.value))
+            vnode.elm.dispatchEvent(new Event('input'))
+            // vnode.elm.dispatchEvent(new CustomEvent('input', el.value))
         }
     }
     return handle

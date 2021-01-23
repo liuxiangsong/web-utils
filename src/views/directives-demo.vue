@@ -4,7 +4,7 @@
       <h2>全局指令</h2>
       <input type="text" v-focus placeholder="页面加载后光标聚焦在该控件"/>
       <hr />
-      <input v-myrestrict.float maxlength="10" placeholder="只能输入浮点类型数据" />
+      <input v-myrestrict.float maxlength="10" v-model="floatValue" placeholder="只能输入浮点类型数据" />{{floatValue}}
       <br />
       <input v-myrestrict.regular="/^[0-9a-f]*$/i" placeholder="只能输入符合正则的数据" />
       <br/>
@@ -41,7 +41,8 @@ export default {
     name:'directivesDemo',
     data() {
         return {
-            message: '测试'
+            message: '测试',
+            floatValue:0,
         }
     },
     methods: {
