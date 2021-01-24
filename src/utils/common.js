@@ -5,14 +5,35 @@
  * @param {Interge} pageSize 一页的条数
  * @return {Array} 返回当前页的数据
  */
-export function pagination(array,pageIndex, pageSize) {
+export function pagination(array, pageIndex, pageSize) {
     var offset = (pageIndex - 1) * pageSize
-    if(offset + pageSize >= array.length){
+    if (offset + pageSize >= array.length) {
         return array.slice(offset, array.length)
     }
     return array.slice(offset, offset + pageSize)
 }
 
+export function debounce(fn, delay) {
+    let timer = null
+    return function() {
+        timer && clearTimeout(timer)
+        timer = setTimeout(() => {
+            fn.apply(this, arguments)
+        }, delay)
+    }
+}
+
+export function throttle(fn, delay) {
+    let timer = null
+    return function() {
+        if (!timer) {
+            timer = setTimeout(() => {
+                timer = null
+                fn.apply(this, arguments)
+            }, delay)
+        }
+    }
+}
 /**
  *  取得分批次上传数据拆分结果
  * @param {Array} arrayData 上传数据
@@ -20,10 +41,10 @@ export function pagination(array,pageIndex, pageSize) {
  * @return {Array<Aarray>}
  */
 export function getSplitData(arrayData, maxcount) {
-    if(!arrayData){
+    if (!arrayData) {
         return []
     }
-    if(arrayData.length<=maxcount){
+    if (arrayData.length <= maxcount) {
         return [arrayData]
     }
     const total = arrayData.length

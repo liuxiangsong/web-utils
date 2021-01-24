@@ -5,6 +5,7 @@
       <input type="text" v-focus placeholder="页面加载后光标聚焦在该控件"/>
       <hr />
       <input v-myrestrict.float maxlength="10" v-model="floatValue" placeholder="只能输入浮点类型数据" />{{floatValue}}
+      <el-input v-myrestrict.integer v-model="integerValue"  />{{integerValue}}
       <br />
       <input v-myrestrict.regular="/^[0-9a-f]*$/i" placeholder="只能输入符合正则的数据" />
       <br/>
@@ -43,6 +44,7 @@ export default {
         return {
             message: '测试',
             floatValue:0,
+            integerValue:0,
         }
     },
     methods: {
