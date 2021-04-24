@@ -49,7 +49,7 @@ export default {
         overflow: hidden;
       }
       .el-main {
-        @include scrollBar;
+         @include scroll-bar;
         background: white;
         overflow: auto;
         height: calc(100% - 85px);
