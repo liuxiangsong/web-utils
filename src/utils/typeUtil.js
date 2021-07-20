@@ -53,3 +53,15 @@ export function formatEmptyOfObject(obj){
 export function copyTheSameProperty(targetObject,originObject){
     Object.keys(targetObject).forEach(key=>{targetObject[key]=originObject[key]})
 }
+
+/**
+ * 数字千分位格式化
+ * @param {String,Number} value 
+ * @returns 
+ */
+export function formatNumber(value) {
+    if(!value){
+        return '0'
+    }
+    return (value+'').replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}

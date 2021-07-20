@@ -61,8 +61,10 @@ function handleInput(el,vnode,reg,max) {
         }
         //处理model值与input的value不一致的问题
         if (vnode.componentInstance) { 
+            // 如果是自定义组件就触发自定义组件的input事件
             vnode.componentInstance.$emit('input', el.value)
         } else {
+            // 如果是原生组件就触发原生组件的input事件
             vnode.elm.dispatchEvent(new Event('input'))
             // vnode.elm.dispatchEvent(new CustomEvent('input', el.value))
         }

@@ -27,7 +27,9 @@ Vue.use(ElementUI)
 Vue.use(Contextmenu)
 // Vue.use(myPlugin)
 
-Vue.config.productionTip = false
+const isDevEnv=process.env.NODE_ENV !== 'production'
+Vue.config.productionTip = isDevEnv
+Vue.config.devtools = isDevEnv
 
 new Vue({
     router,
