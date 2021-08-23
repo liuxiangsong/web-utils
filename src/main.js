@@ -27,6 +27,11 @@ Vue.use(ElementUI)
 Vue.use(Contextmenu)
 // Vue.use(myPlugin)
 
+import 'xe-utils'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
+Vue.use(VXETable)
+
 const isDevEnv=process.env.NODE_ENV !== 'production'
 Vue.config.productionTip = isDevEnv
 Vue.config.devtools = isDevEnv

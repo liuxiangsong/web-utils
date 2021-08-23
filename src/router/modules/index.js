@@ -154,6 +154,11 @@ const dynamicRoutes = [
                 name: 'editable-table',
                 meta: { title: '可编辑表格' },
                 component: () => import('@/views/table/editable-table'),
+            }, {
+                path: 'vxe-table-demo',
+                name: 'vxe-table-demo',
+                meta: { title: '可编辑表格' },
+                component: () => import('@/views/table/vxe-table-demo'),
             },
         ],
     },
