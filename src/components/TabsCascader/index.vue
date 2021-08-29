@@ -1,7 +1,7 @@
 <template>
   <el-popover placement="bottom" :width="width" :popper-options="{boundariesElement:'body'}" trigger="manual" v-model="visible" popper-class="popover-tabs-cascader" @hide="popoverVisible=false" @show="popoverVisible=true">
-    <div class="content" v-loading="loading"  @mouseenter="cursorHoverPopover=true" @mouseleave="cursorHoverPopover=false" @click="clickPopover">
-      <el-tabs v-show="!showSuggestionResult" v-model="currentTabIndex" @tab-click="clickTab" >
+    <div class="content" v-loading="loading" @mouseenter="cursorHoverPopover=true" @mouseleave="cursorHoverPopover=false" @click="clickPopover">
+      <el-tabs v-show="!showSuggestionResult" v-model="currentTabIndex" @tab-click="clickTab">
         <el-tab-pane v-for="(tab,index) in tabs" :key="index" :label="tab.selectedOption&&tab.selectedOption.label ||'请选择' " :name="index+''">
           <ul class="item-wrap">
             <li v-for="item in tab.options" :key="item.label" @click="clickItem(item,index)">{{item.label}}</li>
@@ -9,22 +9,23 @@
         </el-tab-pane>
       </el-tabs>
       <div v-show="showSuggestionResult" class="search-result">
-        <el-scrollbar wrap-class="scrollbar-wrapper" >
+        <el-scrollbar wrap-class="scrollbar-wrapper">
           <ul>
-              <li v-if="!suggestions||suggestions.length<1" class="empty-text">无匹配数据</li>
+            <li v-if="!suggestions||suggestions.length<1" class="empty-text">无匹配数据</li>
             <template v-else>
-                <li v-for="(item,index) in suggestions" :key="index" @click="suggestionItemClick(item)">
-              {{`${item.displayText}`}}
-            </li>
+              <li v-for="(item,index) in suggestions" :key="index" @click="suggestionItemClick(item)">
+                {{`${item.displayText}`}}
+              </li>
             </template>
           </ul>
         </el-scrollbar>
       </div>
     </div>
-    <div slot="reference" class="input-container" @mouseenter="handleMouseEvent(true)" @mouseleave="handleMouseEvent(false)" @click.stop="clickInputContainer">
-      <el-input v-model="displayText" ref="input" clearable :placeholder="placeholder" :readonly="readonly" @clear="clearInput" @focus="focusInInput=true" @blur="lostFocus" @input="debounceHandleInput" size="medium"></el-input>
-      <i slot="suffix" v-show="readonly&&cursorHoverInput&&displayText" class="el-select__caret el-input__icon el-icon-circle-close" @click.stop="clearInput"></i>
-      <i slot="suffix" v-show="(!cursorHoverInput&&!focusInInput) || !displayText" class="el-select__caret el-input__icon el-icon-arrow-up" :class="{ 'is-reverse': popoverVisible }"  @mouseenter="handleMouseEvent(true)" @mouseleave="handleMouseEvent(false)"  @click.stop="clickInputContainer('icon')"></i>
+    <div slot="reference" class="input-container" @mouseenter="inputHover=true" @mouseleave="inputHover=false" @click.stop="togglePopperVisible">
+      <el-input v-model="inputValue" ref="input" clearable :placeholder="placeholder" :readonly="readonly" @clear="clearInput" @focus="focusInInput=true" @blur="lostFocus" @input="debounceHandleInput" size="medium">
+        <i slot="suffix" v-if="readonly&&inputHover&&inputValue" class="el-select__caret el-input__icon el-icon-circle-close" @click.stop="clearInput"></i>
+        <i slot="suffix" v-else-if="(!inputHover&&!focusInInput) || !inputValue" class="el-select__caret el-input__icon el-icon-arrow-up" :class="{ 'is-reverse': popoverVisible }" @mouseenter="inputHover=true" @mouseleave="inputHover=false" @click.stop="togglePopperVisible('icon')"></i>
+      </el-input>
     </div>
 
   </el-popover>
@@ -51,60 +52,57 @@ export default {
             },
         },
     },
-    data() {
+    data () {
         return {
             cacheOptions: [],
             visible: false,
             loading: false,
             popoverVisible: false,
-            cursorHoverInput: false,
-            cursorHoverPopover:false,
+            inputHover: false,
+            cursorHoverPopover: false,
             focusInInput: false,
             currentTabIndex: '0',
             tabs: [], //{selectedOption,options}  selectedOption:为当前面板选择的option,options:为上一级option.children
             selectedOptions: [],
-            displayText: '',
+            inputValue: '',
             suggestions: [], //搜索结果
             showSuggestionResult: false, //是否显示搜索结果
         }
     },
-    mounted() {
-        const byOptionValue= !this.labelList ||this.labelList.length<1
-        const list=byOptionValue?this.valueList:this.labelList
-        this.initByList(list,byOptionValue)
+    mounted () {
+        const byOptionValue = !this.labelList || this.labelList.length < 1
+        const list = byOptionValue ? this.valueList : this.labelList
+        this.initByList(list, byOptionValue)
     },
     methods: {
-        handleMouseEvent(isEnter){
-            this.cursorHoverInput=isEnter 
-        },
-        async initByList(list, byOptionValue = true,isManualClick=false) {
+        async initByList (list, byOptionValue = true, isManualClick = false) {
             if (this.tabs.length > 1) {
                 this.clickTab({ index: 0 })
             }
             if (this.props && this.props.lazy) {
-                if(this.tabs.length<1){
-                    await this.lazyLoadChildrenOfOption({ value: '', level: 1 })
-                } 
-                this.lazyLoadDataByList(list, byOptionValue,isManualClick)
+                if (this.tabs.length < 1) {
+                    await this.loadChildrenOfOptionInLazy({ value: '', level: 1 })
+                }
+                this.loadDataByListInLazy(list, byOptionValue, isManualClick)
             } else {
                 this.loadDataByValueList(list, byOptionValue)
             }
         },
-        clickTab(tab) {
+        clickTab (tab) {
             const tabIndex = Number(tab.index)
             this.currentTabIndex = tabIndex + ''
             this.tabs = this.tabs.slice(0, tabIndex + 1)
         },
-        clickItem(option, tabIndex) {
+        clickItem (option, tabIndex) {
             if (this.props && this.props.lazy) {
                 option.level = tabIndex + 1
-                this.lazyLoadChildrenOfOption(option, true)
+                this.loadChildrenOfOptionInLazy(option, true)
             } else {
                 this.loadChildrenOfOption(option, true)
             }
         },
         //加载option的children
-        loadChildrenOfOption(option, isManualClick) {
+        loadChildrenOfOption (option, isManualClick) {
             const theLastTab = this.tabs[this.tabs.length - 1]
             const tabOption = theLastTab.options.find((o) => o.value == option.value)
             Object.assign(option, tabOption)
@@ -120,12 +118,12 @@ export default {
             this.currentTabIndex = this.tabs.length - 1 + ''
         },
         //通过valueList加载数据
-        loadDataByValueList(valueList) {
+        loadDataByValueList (valueList) {
             let currentOptions = this.options
             if (!valueList || valueList.length < 1) {
                 this.tabs = [{ options: currentOptions }]
                 return
-            } 
+            }
             valueList.forEach((v) => {
                 const option = currentOptions.find((o) => o.value === v)
                 if (option) {
@@ -138,15 +136,15 @@ export default {
             }
             this.currentTabIndex = this.tabs.length - 1 + ''
         },
-        async lazyLoadDataByList(list, byOptionValue = true, isManualClick=false) {
-            if(!list||list.length<1){
-                this.selectedOptions=[]
+        async loadDataByListInLazy (list, byOptionValue = true, isManualClick = false) {
+            if (!list || list.length < 1) {
+                this.selectedOptions = []
                 return
             }
             // list = list || [null]
             if (!this.props.lazy) {
                 return
-            } 
+            }
             for (let index = 0; index < list.length; index++) {
                 let option = { value: list[index], level: index + 1 }
                 if (!this.tabs[index]) {
@@ -158,10 +156,10 @@ export default {
                     )
                     Object.assign(option, tabOption)
                 }
-                await this.lazyLoadChildrenOfOption(option,isManualClick)
+                await this.loadChildrenOfOptionInLazy(option, isManualClick)
             }
         },
-        lazyLoadChildrenOfOption(option, isManualClick) {
+        loadChildrenOfOptionInLazy (option, isManualClick) {
             return new Promise((resolve, reject) => {
                 if (option && option.value) {
                     const children = this.getChildrenFromCacheOptions(
@@ -205,20 +203,20 @@ export default {
                         resolve()
                     })
                 } catch (ex) {
-                    console.log('lazyLoadChildrenOfOption :>> ', ex)
+                    console.log('loadChildrenOfOptionInLazy :>> ', ex)
                     this.loading = false
                     reject()
                 }
             })
         },
         /**
-       *  查找option的children
-       * @param {Object} option 当前点击的option
-       * @param {Array} cacheOptions 缓存选项
-       * @param {Number} currentLevel 当前循环的层级
-       * @return {Array} 查找到option的子选项
-       */
-        getChildrenFromCacheOptions(option, cacheOptions, currentLevel) {
+     *  查找option的children
+     * @param {Object} option 当前点击的option
+     * @param {Array} cacheOptions 缓存选项
+     * @param {Number} currentLevel 当前循环的层级
+     * @return {Array} 查找到option的子选项
+     */
+        getChildrenFromCacheOptions (option, cacheOptions, currentLevel) {
             cacheOptions = cacheOptions || []
             for (let i = 0; i < cacheOptions.length; i++) {
                 const item = cacheOptions[i]
@@ -234,49 +232,49 @@ export default {
                 }
             }
         },
-        clearInput() {
+        clearInput () {
             this.$refs.input.focus()
             this.selectedOptions = []
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
                 // console.log('this.selectedOptions :>> ', this.selectedOptions)
                 this.$emit('valueChange', this.selectedOptions)
             })
         },
-        lostFocus() {
-            if(!this.cursorHoverPopover){
-                this.visible=false
-                this.showSuggestionResult=false
-                this.displayText = this.selectedOptions
+        lostFocus () {
+            if (!this.cursorHoverPopover) {
+                this.visible = false
+                this.showSuggestionResult = false
+                this.inputValue = this.selectedOptions
                     .map((o) => o.label)
-                    .join(this.separator) 
+                    .join(this.separator)
             }
-            this.focusInInput =this.popoverVisible? null :false
+            this.focusInInput = this.popoverVisible ? null : false
         },
-        clickInputContainer(target){
-            if(target==='icon'&&this.focusInInput == null){
+        togglePopperVisible (target) {
+            if (target === 'icon' && this.focusInInput == null) {
                 this.focusInInput = false
                 return
             }
-            this.visible=!this.visible
-            if( this.visible){ 
+            this.visible = !this.visible
+            if (this.visible) {
                 this.$refs.input.focus()
-                if(!this.displayText){
-                    this.showSuggestionResult=false
+                if (!this.inputValue) {
+                    this.showSuggestionResult = false
                 }
-            }   
+            }
         },
-        clickPopover(){  
+        clickPopover () {
             this.$refs.input.focus()
         },
-        debounceHandleInput:debounce(function(queryString){
+        debounceHandleInput: debounce(function (queryString) {
             this.handleInput(queryString)
-        },500),
-        handleInput(queryString) {
+        }, 500),
+        handleInput (queryString) {
             if (!this.fetchSuggestions) {
                 return
             }
-            if(!queryString){
-                this.suggestions =[]
+            if (!queryString) {
+                this.suggestions = []
                 return
             }
             this.loading = true
@@ -285,20 +283,20 @@ export default {
                 this.suggestions = data
                 this.loading = false
             })
-        }, 
-        async suggestionItemClick(item) {
-            this.initByList(item.labelList, false,true) 
-            this.visible=false 
+        },
+        async suggestionItemClick (item) {
+            this.initByList(item.labelList, false, true)
+            this.visible = false
             setTimeout(() => {
-                this.showSuggestionResult=false
+                this.showSuggestionResult = false
             }, 100)
         },
     },
     computed: {
-        readonly() {
+        readonly () {
             return !this.filterable
         },
-        // displayText:{
+        // inputValue:{
         //     get(){
         //         return this.selectedOptions.map((o) => o.label).join(this.separator)
         //     },
@@ -309,15 +307,15 @@ export default {
         // }
     },
     watch: {
-        selectedOptions() {
-            this.displayText = this.selectedOptions
+        selectedOptions () {
+            this.inputValue = this.selectedOptions
                 .map((o) => o.label)
                 .join(this.separator)
-        }, 
+        },
         labelList: {
             deep: true,
             handler: function (val) {
-                this.initByList(val,false)
+                this.initByList(val, false)
             },
         },
     },
@@ -354,11 +352,11 @@ export default {
 
     ul {
       padding-bottom: 15px;
-          .empty-text{
-color: #c0c4cc;
-text-align: center;
-cursor: auto;
-    }
+      .empty-text {
+        color: #c0c4cc;
+        text-align: center;
+        cursor: auto;
+      }
       li {
         height: 34px;
         line-height: 34px;

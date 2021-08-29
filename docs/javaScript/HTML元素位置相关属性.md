@@ -1,5 +1,15 @@
 # HTML元素位置相关属性
 
+## 常用方法
+
+- element.scrollIntoView({behavior: "smooth"})
+  - 滚动条滚动至相应某元素
+  - behavior :定义动画过渡效果， "auto"或 "smooth" 之一。默认为 "auto"
+- element.getBoundingClientRect()
+  - width/height:边框 + 内边距 + 内容框
+  - top(bottom/left/right):元素的上边界和父元素上边界的距离
+  - x/y:元素的左上角和父元素左上角的距离
+
 ## 事件坐标
 
 ### 鼠标事件相关坐标属性
@@ -50,7 +60,7 @@
 
 | scroll系列属性       | 作用                             |
 | :------------------- | :------------------------------- |
-| 元素滚动scroll系列   | 返回被卷去的上侧距离             |
+| element.scrollTop   | 返回被卷去的上侧距离             |
 | element.scrollLeft   | 返回被卷去的左侧距离             |
 | element.scrollWidth  | 返回自身**实际**的宽度，不含边框 |
 | element.scrollHeight | 返回自身**实际**的高度，不含边框 |

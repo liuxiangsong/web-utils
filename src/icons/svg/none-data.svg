@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M82,32 L82,43 L80,43 L80,70 C80,72.209139 78.209139,74 76,74 L50,74 C47.790861,74 46,72.209139 46,70 L46,36 C46,33.790861 47.790861,32 50,32 L82,32 Z" id="path-1"></path>
+        <filter x="-19.4%" y="-11.9%" width="138.9%" height="133.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.189821897 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-3" x="3" y="0" width="50" height="37" rx="4"></rect>
+        <filter x="-14.0%" y="-13.5%" width="128.0%" height="137.8%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.189821897 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-5" points="0 6.84511749 4.76780219 6.93255317 7 5.84511749 8.5 2.44249065e-14 1.5 2.85315253"></polygon>
+        <path d="M3.5,33 L21.4666667,33 L21.4666667,33 L23.3333333,34.0874357 L31.7333333,34.0874357 L33.6,33 L52.5,33 C54.4329966,33 56,34.5670034 56,36.5 C56,38.4329966 54.4329966,40 52.5,40 L3.5,40 C1.56700338,40 -2.07365397e-16,38.4329966 0,36.5 C-2.36723813e-16,34.5670034 1.56700338,33 3.5,33 Z" id="path-7"></path>
+        <filter x="-12.5%" y="-71.4%" width="125.0%" height="300.0%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.189821897 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="缺省页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-250.000000, -36.000000)" id="编组-5">
+            <g transform="translate(250.000000, 36.000000)">
+                <path d="M54.2102929,107 C83.1071164,107 91.226749,73.8105309 106.53262,55.0630831 C121.838492,36.3156354 61.3488842,22.445405 50.9323834,8.45150468 C40.5158827,-5.54239561 -5.96038368,25.6288159 1.88796544,55.0630831 C9.73631456,84.4973504 25.3134694,107 54.2102929,107 Z" id="椭圆形" fill="#E1EAFF" opacity="0.200000003"></path>
+                <path d="M54.4913351,92.3316544 C63.4902654,78.3570766 96,81.1180825 96,57.7240693 C96,34.3300562 77.4921598,1.62573062 54.4913351,20.7655127 C31.4905104,39.9052948 22.299583,25.785399 14.9414682,56.5485835 C7.58335349,87.3117681 45.4924047,106.306232 54.4913351,92.3316544 Z" id="椭圆形" fill="#D6DBFC" opacity="0.25"></path>
+                <circle id="椭圆形" stroke="#AF99FF" stroke-width="2" cx="47" cy="23" r="2"></circle>
+                <path d="M91.1213203,55.7071068 L92.1812136,56.7672136 L93.2426407,55.7071068 C93.633165,55.3165825 94.26633,55.3165825 94.6568542,55.7071068 C95.0473785,56.0976311 95.0473785,56.7307961 94.6568542,57.1213203 L93.5962136,58.1812136 L94.6568542,59.2426407 C95.0473785,59.633165 95.0473785,60.26633 94.6568542,60.6568542 C94.26633,61.0473785 93.633165,61.0473785 93.2426407,60.6568542 L92.1812136,59.5962136 L91.1213203,60.6568542 C90.7307961,61.0473785 90.0976311,61.0473785 89.7071068,60.6568542 C89.3165825,60.26633 89.3165825,59.633165 89.7071068,59.2426407 L90.7672136,58.1812136 L89.7071068,57.1213203 C89.3165825,56.7307961 89.3165825,56.0976311 89.7071068,55.7071068 C90.0976311,55.3165825 90.7307961,55.3165825 91.1213203,55.7071068 Z" id="形状结合" fill="#72727B"></path>
+                <rect id="矩形备份-25" fill="#72727B" x="35.5" y="90" width="2" height="7" rx="1"></rect>
+                <rect id="矩形备份-26" fill="#72727B" transform="translate(36.500000, 93.500000) rotate(-270.000000) translate(-36.500000, -93.500000) " x="35.5" y="90" width="2" height="7" rx="1"></rect>
+                <g id="形状结合">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <path stroke="#72727B" stroke-width="2" d="M81,33 L81,42 L79,42 L79,70 C79,70.8284271 78.6642136,71.5784271 78.1213203,72.1213203 C77.5784271,72.6642136 76.8284271,73 76,73 L76,73 L50,73 C49.1715729,73 48.4215729,72.6642136 47.8786797,72.1213203 C47.3357864,71.5784271 47,70.8284271 47,70 L47,70 L47,36 C47,35.1715729 47.3357864,34.4215729 47.8786797,33.8786797 C48.4215729,33.3357864 49.1715729,33 50,33 L50,33 L81,33 Z" stroke-linejoin="square" fill="#FFFFFF" fill-rule="evenodd"></path>
+                </g>
+                <rect id="矩形" fill="#AF99FF" x="53" y="37" width="20" height="2" rx="1"></rect>
+                <rect id="矩形备份-23" fill="#AF99FF" x="53" y="41" width="14" height="2" rx="1"></rect>
+                <path d="M82,33 C82.8284271,33 83.5784271,33.3357864 84.1213203,33.8786797 C84.6642136,34.4215729 85,35.1715729 85,36 L85,36 L85,42 L79,42 L79,36 C79,35.1715729 79.3357864,34.4215729 79.8786797,33.8786797 C80.4215729,33.3357864 81.1715729,33 82,33 Z" id="矩形" stroke="#72727B" stroke-width="2" fill="#AF99FF"></path>
+                <path d="M74,70 L74.0054857,70.1492623 C74.0780174,71.1323792 74.8612265,71.9178648 75.8433495,71.9939555 L76,72 L76,74 C73.8578046,74 72.1089211,72.3160315 72.0048953,70.1996403 L72,70 L72,63 L64,63 L64,61 L74,61 L74,70 Z" id="形状结合" fill="#72727B" fill-rule="nonzero"></path>
+                <g id="编组-8" transform="translate(21.000000, 43.912564)">
+                    <g id="矩形">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <rect stroke="#72727B" stroke-width="2" stroke-linejoin="square" fill="#FFFFFF" fill-rule="evenodd" x="4" y="1" width="48" height="35" rx="4"></rect>
+                    </g>
+                    <g id="编组-12" transform="translate(19.000000, 5.087436)">
+                        <rect id="矩形" stroke="#72727B" stroke-width="2" fill="#FFFFFF" transform="translate(13.792893, 13.380329) rotate(-45.000000) translate(-13.792893, -13.380329) " x="12.2928932" y="8.3803289" width="3" height="10" rx="1.5"></rect>
+                        <circle id="椭圆形" stroke="#72727B" stroke-width="2" fill="#FFFFFF" cx="8" cy="8" r="7"></circle>
+                        <g id="编组-11" transform="translate(1.500000, 1.154883)">
+                            <mask id="mask-6" fill="white">
+                                <use xlink:href="#path-5"></use>
+                            </mask>
+                            <use id="路径-3" fill-opacity="0" fill="#D8D8D8" xlink:href="#path-5"></use>
+                            <circle id="椭圆形" stroke="#72727B" stroke-width="2" fill="#FFFFFF" mask="url(#mask-6)" cx="6.5" cy="6.93255317" r="3"></circle>
+                        </g>
+                    </g>
+                    <rect id="矩形" fill="#AF99FF" x="9" y="26.0874357" width="10" height="4" rx="1"></rect>
+                    <rect id="矩形备份-20" fill="#AF99FF" x="23" y="26.0874357" width="10" height="4" rx="1"></rect>
+                    <rect id="矩形备份-21" fill="#AF99FF" x="37" y="26.0874357" width="10" height="4" rx="1"></rect>
+                    <g id="矩形">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                        <path stroke="#72727B" stroke-width="2" d="M33.8700374,34 L52.5,34 C53.1903559,34 53.8153559,34.279822 54.267767,34.732233 C54.720178,35.1846441 55,35.8096441 55,36.5 C55,37.1903559 54.720178,37.8153559 54.267767,38.267767 C53.8153559,38.720178 53.1903559,39 52.5,39 L52.5,39 L3.5,39 C2.80964406,39 2.18464406,38.720178 1.73223305,38.267767 C1.27982203,37.8153559 1,37.1903559 1,36.5 C1,35.8096441 1.27982203,35.1846441 1.73223305,34.732233 C2.18464406,34.279822 2.80964406,34 3.5,34 L3.5,34 L21.1966293,34 L23.0632959,35.0874357 L32.0033707,35.0874357 L33.8700374,34 Z" stroke-linejoin="square" fill="#FFFFFF" fill-rule="evenodd"></path>
+                    </g>
+                </g>
+                <polygon id="路径-13" fill="#72727B" transform="translate(18.395080, 42.444559) rotate(-19.000000) translate(-18.395080, -42.444559) " points="19.214388 45.2642255 21.0148978 43.9321453 18.8208527 39.6248931 15.7752621 41.9321453"></polygon>
+                <polygon id="路径-13备份" fill="#72727B" transform="translate(23.440671, 38.751811) rotate(30.000000) translate(-23.440671, -38.751811) " points="24.2599786 41.5714777 26.0604884 40.2393975 23.8664433 35.9321453 20.8208527 38.2393975"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
