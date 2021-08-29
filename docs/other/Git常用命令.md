@@ -61,4 +61,9 @@
 - git config --global --unset http.proxy
 - git config --global --unset https.proxy
 
+## git 升级
+
+- git update-git-for-windows
+
+-
 [参考文档](https://gitee.com/liaoxuefeng/learn-java/raw/master/teach/git-cheatsheet.pdf)
