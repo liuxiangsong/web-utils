@@ -6,3 +6,4 @@
 ## 常用命令
 
 - 清除缓存：`npm cache clear --force`
+- 查看全局安装包：`npm list -g --depth 0`

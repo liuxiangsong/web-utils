@@ -80,4 +80,15 @@ $sizes: 40px, 50px, 80px;
     font-size: $size;
   }
 }
+
+$reasons:(
+  (reason:'pandemic',color:#F05A05),
+);
+@each $item in $reasons {
+    $reason: map-get($map:$item, $key:reason);
+    $color: map-get($map:$item, $key:color);
+  .#{$reason}{
+    color: #{$color};
+  }
+}
 ```

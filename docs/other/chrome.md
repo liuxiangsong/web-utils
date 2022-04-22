@@ -1,0 +1,2 @@
+- chrome 无法同步
+  - 打开chrome://flags/#account-consistency，启用Use Chrome Sync sandbox
