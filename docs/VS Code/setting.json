@@ -29,7 +29,7 @@
   },
   "[vue]": {
     "editor.formatOnSave": false,
-    "editor.defaultFormatter": "octref.vetur",
+    "editor.defaultFormatter": "octref.vetur"
   },
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

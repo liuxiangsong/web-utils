@@ -2,7 +2,7 @@
 
 ## 安装 nginx
 
-- 普通安装方法：[参考资料](https://juejin.im/post/6844904134345228301)
+- 普通安装方法：[参考资料](https://juejin.impost/6844904134345228301)
 - 通过 docker 安装
 
 ## 常用命令
@@ -15,6 +15,41 @@
 ## nginx 配置
 
 > nginx 的核心配置文件 /etc/nginx/nginx.conf
+``` conf
+user  nginx;
+worker_processes  1; # 数值越大，并发能力就越强（跟服务器配置有关）
+
+error_log  /var/log/nginx/error.log warn; 
+pid        /var/run/nginx.pid;
+
+# 上面部分为全局块
+
+events {
+    worker_connections  1024;  # 数值越大，并发能力越强
+}
+
+
+http {
+    include       /etc/nginx/mime.types;  # include表示引入外部文件 
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+
+```
 >
 > nginx.conf 主要内容：
 >

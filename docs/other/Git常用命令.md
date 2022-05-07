@@ -61,6 +61,10 @@
 - git config --global --unset http.proxy
 - git config --global --unset https.proxy
 
+### 针对github代理设置
+- git config --global http.https://github.com.proxy 'http://127.0.0.1:端口号'
+- git config --global --unset http.https://github.com.proxy
+
 ## git 升级
 
 - git update-git-for-windows

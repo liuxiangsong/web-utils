@@ -1,3 +1,24 @@
+1. 拉取mysql镜像
+  `docker pull nginx`
+2. 在/root目录下创建myNginx目录用于存储nginx数据信息
+   ```sh
+   mkdir ~/lau_nginx
+   cd ~/lau_nginx
+   ```
+3. 创建容器，设置端口映射、目录映射
+  ```sh
+  docker run -id \
+  -p 80:80 \
+  --name=lau_nginx \
+  -v $PWD/conf:/etc/nginx \
+  -v $PWD/logs:/var/log/nginx \
+  -v $PWD/html:/usr/share/nginx/html \
+  nginx
+  ```
+
+## docker-compose.yml
+
+```yml
 version: '3.1'
 services:       # 可设置多个服务
   lau_nginx:        # 服务的名称
@@ -13,16 +34,4 @@ services:       # 可设置多个服务
       - /opt/lau_docker/lau_nginx/conf.d/:/etc/nginx/conf.d
       - /opt/lau_docker/lau_nginx/logs:/var/log/nginx
     privileged: true        # 解决nginx的文件调用权限问题
-  lau_mysql:
-    container_name: lau_mysql
-    restart: always
-    image: daocloud.io/library/mysql:5.7.7
-    ports: 
-      - 3306:3306
-    environment:
-      TZ: Asia/Shanghai  
-      MYSQL_ROOT_PASSWORD: 123456 
-    volumes:     
-      - /opt/lau_docker/lau_mysql/data:/var/lib/mysql     
-      - /opt/lau_docker/lau_mysql/logs:/logs 
-      - /opt/lau_docker/lau_mysql/conf:/etc/mysql/conf.d
+```

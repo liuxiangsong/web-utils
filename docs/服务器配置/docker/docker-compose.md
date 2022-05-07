@@ -68,6 +68,12 @@ services:       # 可设置多个服务
 1. 下载[lazydocker压缩包](https://github.com/jesseduffield/lazydocker/releases)
 2. 解压压缩包后，直接运行`lazydocker`命令即可
 
+### Linux 中安装
+1. 下载： wget https://github.com/jesseduffield/lazydocker/releases/download/v0.8/lazydocker_0.8_Linux_x86_64.tar.gz
+2. 解压： tar xvzf lazydocker*.tar.gz
+3. 安装： sudo install lazydocker /usr/local/bin
+4. 验证安装是否成功: lazydocker --version
+
 
 
 [参考资料](https://www.bilibili.com/video/BV1sK4y1s7Cj?p=3)

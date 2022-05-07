@@ -42,5 +42,25 @@
   4. `sysctl net.ipv4.ip_forward`    # 查看是否修改成功
 
 
+## docker-compose.yml
+
+```yml
+version: '3.1'
+services:       # 可设置多个服务
+  lau_mysql:
+    container_name: lau_mysql
+    restart: always
+    image: daocloud.io/library/mysql:5.7.7
+    ports: 
+      - 3306:3306
+    environment:
+      TZ: Asia/Shanghai  
+      MYSQL_ROOT_PASSWORD: 123456 
+    volumes:     
+      - /opt/lau_docker/lau_mysql/data:/var/lib/mysql     
+      - /opt/lau_docker/lau_mysql/logs:/logs 
+      - /opt/lau_docker/lau_mysql/conf:/etc/mysql/conf.d
+```
+
 
 
