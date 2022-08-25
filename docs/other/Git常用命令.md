@@ -14,6 +14,7 @@
 - `git restore .`
 - `git reset --soft HEAD~`
 - `git commit --amend` //修改最近一次 commit 注释
+- `git commit --amend --no-edit` //将本次提交合并到上一个提交上
 - `git rm -r --cached [文件(夹)名称]` //git 忽略已提交的文件夹,-r 为递归删除，移除文件时，不需加该参数
 
 ## 操作分支相关命令
@@ -27,6 +28,7 @@
 - 新建并拉取远程分支：`git checkout -b [name] origin/[name]`
 - 删除分支： `git branch -d [name]`
 - 合并分支： `git merge [name]`
+- 撤销合并： `git merge --abort`
 - 创建远程分支(本地分支 push 到远程)： `git push origin [name]`
 - 删除远程分支: `git push origin --delete [name]`
 

@@ -1,5 +1,5 @@
 .clearfix::after {
-  display: block;
+  display: table;
   content: '';
   clear: both;
 }

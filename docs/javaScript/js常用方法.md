@@ -29,11 +29,11 @@
 
 ### reduce
 
-- 语法：array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
-  - total：必需。初始值, 或者计算结束后的返回值。
-  - currentValue：必需。当前元素。
+- 语法：array.reduce(function(previousValue, currentValue, currentIndex, arr), initialValue)
+  - previousValue：必需。
+  - currentValue：必需。
   - currentIndex、arr：可选。
-  - initialValue：可选。传递给函数的初始值。
+  - initialValue：可选。传递给函数的初始值。若指定了初始值 initialValue，则 currentValue 则将使用数组第一个元素，则起始索引号（currentIndex）从0开始；否则 previousValue 将使用数组第一个元素，而 currentValue 将使用数组第二个元素，currentIndex则从1开始
 - eg：分组
 
 ```js
