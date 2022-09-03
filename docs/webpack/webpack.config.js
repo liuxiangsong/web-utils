@@ -10,6 +10,7 @@
     - mode：指示webpack使用相应模式的配置（development、production）
   3、loader和plugins的使用：loader是先下载安装，然后使用；plugin是先下载安装，然后引用后，才能使用。
   4、plugins（插件）：
+    - SpeedMeasurePlugin: 测试构建各plugin的耗时(安装speed-measure-webpack-plugin)
     - HtmlWebpackPlugin:创建html及压缩html代码。（安装html-webpack-plugin）
     - MiniCssExtractPlugin:把css提取成单独文件。（安装mini-css-extract-plugin）
     - OptimizeCssAssetsWebpackPlugin：压缩css。（安装optimize-css-assets-webpack-plugin）

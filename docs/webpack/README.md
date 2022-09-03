@@ -1,5 +1,5 @@
-[参考链接](https://www.bilibili.com/video/BV1e7411j7T5?p=1)
-
+[参考资料](https://www.bilibili.com/video/BV1e7411j7T5?p=1)
+[参考资料](https://juejin.cn/post/6957597810938085384)
 # webpack 性能优化
 
 ## 开发环境性能优化
