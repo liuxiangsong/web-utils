@@ -13,7 +13,7 @@ module.exports = {
         'quotes': [2,'single'], //建议使用单引号
         'semi': [2,'never'],
         // 第二个参数2表示用4个空格作缩进
-        'indent': ['error', 4, {
+        'indent': ['error', 2, {
             'SwitchCase': 1
         }], 
         'no-floating-decimal': 2, // 禁止数字字面量中使用前导和末尾小数点
