@@ -17,4 +17,5 @@
 - copy函数，可复制console面板中的变量值
 - $0、$1...$4：$0表示在Elements面板中当前选中的节点，$1则是上次选择的节点
 - $：document.querySelector函数的别名
+- $$：document.querySelectorAll函数的别名
 - $_：上一次执行结果的引用

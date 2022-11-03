@@ -1,0 +1,13 @@
+:: TestApp为协议名称，
+:: C:\\Program Files\\TestApp.exe 为应用程序目录
+
+Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\TestApp]
+@="URL:TestApp Protocol Handler"
+"URL Protocol"=""
+[HKEY_CLASSES_ROOT\TestApp\DefaultIcon]
+@="C:\\Program Files\\TestApp.exe"
+[HKEY_CLASSES_ROOT\TestApp\shell]
+[HKEY_CLASSES_ROOT\TestApp\shell\open]
+[HKEY_CLASSES_ROOT\TestApp\shell\open\command]
+@="\"C:\\Program Files\\TestApp.exe\" \"%1\""
